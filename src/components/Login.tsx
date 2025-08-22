@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { ShoppingBag, Lock, User } from "lucide-react";
+import React, { useState } from 'react';
+import { ShoppingBag, Lock, User } from 'lucide-react';
 
 interface LoginProps {
   onLogin: (username: string, password: string) => void;
 }
 
 export default function Login({ onLogin }: LoginProps) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -80,15 +80,9 @@ export default function Login({ onLogin }: LoginProps) {
             disabled={isLoading}
             className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? "Logging in..." : "Login"}
+            {isLoading ? 'Logging in...' : 'Login'}
           </button>
         </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-xs text-gray-500">
-            Demo credentials: admin / password
-          </p>
-        </div>
       </div>
     </div>
   );
