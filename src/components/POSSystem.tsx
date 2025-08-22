@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Plus,
   Minus,
@@ -9,9 +9,9 @@ import {
   Building,
   Search,
   RefreshCw,
-} from 'lucide-react';
-import { Product, CartItem, Sale, Category } from '../types';
-import { banks, USD_TO_KHR_RATE } from '../utils/mockData';
+} from "lucide-react";
+import { Product, CartItem, Sale, Category } from "../types";
+import { banks, USD_TO_KHR_RATE } from "../utils/mockData";
 
 interface POSSystemProps {
   products: Product[];
@@ -26,27 +26,27 @@ export default function POSSystem({
   onShowReceipt,
   categories,
 }: POSSystemProps) {
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [currency, setCurrency] = useState<'USD' | 'KHR'>('USD');
+  const [currency, setCurrency] = useState<"USD" | "KHR">("USD");
   const [customerPaid, setCustomerPaid] = useState<number>(0);
   const [showSizeModal, setShowSizeModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [selectedSize, setSelectedSize] = useState<string>('');
+  const [selectedSize, setSelectedSize] = useState<string>("");
   const [taxRate, setTaxRate] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState<
-    'cash' | 'credit' | 'bank'
-  >('cash');
-  const [selectedBank, setSelectedBank] = useState('');
-  const [bankSlip, setBankSlip] = useState<string>('');
+    "cash" | "credit" | "bank"
+  >("cash");
+  const [selectedBank, setSelectedBank] = useState("");
+  const [bankSlip, setBankSlip] = useState<string>("");
 
-  const allCategories = ['All', ...categories.map((cat) => cat.name)];
+  const allCategories = ["All", ...categories.map((cat) => cat.name)];
 
   const filteredProducts = products.filter((product) => {
     // Filter by category
     const matchesCategory =
-      selectedCategory === 'All' || product.category === selectedCategory;
+      selectedCategory === "All" || product.category === selectedCategory;
 
     // Filter by search term
     let matchesSearch = true;
@@ -54,8 +54,8 @@ export default function POSSystem({
       const search = searchTerm.toLowerCase().trim();
 
       // Check if search term is a price search (contains $ or is a number)
-      if (search.includes('$') || /^\d+(\.\d{1,2})?$/.test(search)) {
-        const priceSearch = search.replace('$', '');
+      if (search.includes("$") || /^\d+(\.\d{1,2})?$/.test(search)) {
+        const priceSearch = search.replace("$", "");
         const searchPrice = parseFloat(priceSearch);
         if (!isNaN(searchPrice)) {
           matchesSearch = product.price === searchPrice;
@@ -72,7 +72,7 @@ export default function POSSystem({
   const handleProductClick = (product: Product) => {
     if (product.sizes && product.sizes.length > 0) {
       setSelectedProduct(product);
-      setSelectedSize('');
+      setSelectedSize("");
       setShowSizeModal(true);
     } else {
       addToCart(product);
@@ -102,7 +102,7 @@ export default function POSSystem({
       addToCart(selectedProduct, selectedSize);
       setShowSizeModal(false);
       setSelectedProduct(null);
-      setSelectedSize('');
+      setSelectedSize("");
     }
   };
 
@@ -110,7 +110,7 @@ export default function POSSystem({
     setCart(
       cart
         .map((item, index) => {
-          const itemKey = `${item.id}-${item.selectedSize || 'no-size'}`;
+          const itemKey = `${item.id}-${item.selectedSize || "no-size"}`;
           if (itemKey === id) {
             const newQuantity = item.quantity + change;
             return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;
@@ -124,7 +124,7 @@ export default function POSSystem({
   const removeFromCart = (id: string) => {
     setCart(
       cart.filter((item) => {
-        const itemKey = `${item.id}-${item.selectedSize || 'no-size'}`;
+        const itemKey = `${item.id}-${item.selectedSize || "no-size"}`;
         return itemKey !== id;
       })
     );
@@ -132,9 +132,9 @@ export default function POSSystem({
 
   const clearCart = () => {
     setCart([]);
-    setPaymentMethod('cash');
-    setSelectedBank('');
-    setBankSlip('');
+    setPaymentMethod("cash");
+    setSelectedBank("");
+    setBankSlip("");
     setCustomerPaid(0);
   };
 
@@ -147,12 +147,12 @@ export default function POSSystem({
 
   // Currency conversion functions
   const convertPrice = (price: number) => {
-    return currency === 'KHR' ? price * USD_TO_KHR_RATE : price;
+    return currency === "KHR" ? price * USD_TO_KHR_RATE : price;
   };
 
   const formatPrice = (price: number) => {
     const convertedPrice = convertPrice(price);
-    return currency === 'KHR'
+    return currency === "KHR"
       ? `${convertedPrice.toLocaleString()}៛`
       : `$${convertedPrice.toFixed(2)}`;
   };
@@ -183,7 +183,7 @@ export default function POSSystem({
     const sale: Sale = {
       id: Date.now().toString(),
       receiptNumber: `RCP${String(Date.now()).slice(-6)}`,
-      date: new Date().toISOString().split('T')[0],
+      date: new Date().toISOString().split("T")[0],
       time: new Date().toTimeString().slice(0, 5),
       items: cart,
       subtotal,
@@ -193,8 +193,8 @@ export default function POSSystem({
       customerPaid,
       change,
       paymentMethod,
-      bankName: paymentMethod === 'bank' ? selectedBank : undefined,
-      bankSlip: paymentMethod === 'bank' ? bankSlip : undefined,
+      bankName: paymentMethod === "bank" ? selectedBank : undefined,
+      bankSlip: paymentMethod === "bank" ? bankSlip : undefined,
     };
 
     onAddSale(sale);
@@ -208,12 +208,12 @@ export default function POSSystem({
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-3xl font-bold text-gray-800">Point of Sale</h1>
           <button
-            onClick={() => setCurrency(currency === 'USD' ? 'KHR' : 'USD')}
+            onClick={() => setCurrency(currency === "USD" ? "KHR" : "USD")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg flex items-center space-x-2 transition-colors"
           >
             <RefreshCw size={18} />
             <span>
-              {currency === 'USD' ? 'Switch to KHR (៛)' : 'Switch to USD ($)'}
+              {currency === "USD" ? "Switch to KHR (៛)" : "Switch to USD ($)"}
             </span>
           </button>
         </div>
@@ -236,15 +236,15 @@ export default function POSSystem({
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 font-khmer font-bold text-lg">
           {allCategories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                 selectedCategory === category
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               {category}
@@ -261,8 +261,8 @@ export default function POSSystem({
               <p className="text-gray-500 text-lg">No products found</p>
               <p className="text-gray-400 text-sm mt-2">
                 {searchTerm
-                  ? 'Try adjusting your search terms'
-                  : 'Try selecting a different category'}
+                  ? "Try adjusting your search terms"
+                  : "Try selecting a different category"}
               </p>
             </div>
           ) : (
@@ -278,10 +278,10 @@ export default function POSSystem({
                     alt={product.name}
                     className="w-full h-32 object-cover rounded-lg mb-3"
                   />
-                  <h3 className="font-medium text-gray-800 text-sm mb-1 truncate">
+                  <h3 className="font-medium text-gray-800 text-sm mb-1 truncate font-khmer">
                     {product.name}
                   </h3>
-                  <p className="text-xs text-gray-600 mb-2">
+                  <p className="text-xs text-gray-600 mb-2 font-khmer">
                     {product.category}
                   </p>
                   <p className="text-lg font-bold text-blue-600">
@@ -301,7 +301,9 @@ export default function POSSystem({
           {/* Cart Items */}
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-800">Cart</h3>
+              <h1 className="text-lg font-semibold text-gray-800 font-bold">
+                Cart
+              </h1>
               {cart.length > 0 && (
                 <button
                   onClick={clearCart}
@@ -314,11 +316,13 @@ export default function POSSystem({
 
             <div className="space-y-3 max-h-60 overflow-y-auto">
               {cart.length === 0 ? (
-                <p className="text-gray-500 text-center py-8">Cart is empty</p>
+                <p className="text-gray-500 text-center py-8 text-lg">
+                  Cart is empty
+                </p>
               ) : (
                 cart.map((item) => (
                   <div
-                    key={`${item.id}-${item.selectedSize || 'no-size'}`}
+                    key={`${item.id}-${item.selectedSize || "no-size"}`}
                     className="flex items-center space-x-3 py-2 border-b border-gray-100 last:border-0"
                   >
                     <img
@@ -327,15 +331,15 @@ export default function POSSystem({
                       className="w-12 h-12 object-cover rounded"
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-800 text-sm truncate">
+                      <p className="font-medium text-gray-800 text-lg truncate">
                         {item.name}
                       </p>
                       {item.selectedSize && (
-                        <p className="text-xs text-blue-600">
+                        <p className="text-s text-blue-600">
                           Size: {item.selectedSize}
                         </p>
                       )}
-                      <p className="text-xs text-gray-600">
+                      <p className="text-s text-gray-600">
                         {formatPrice(item.price)} each
                       </p>
                     </div>
@@ -343,25 +347,25 @@ export default function POSSystem({
                       <button
                         onClick={() =>
                           updateQuantity(
-                            `${item.id}-${item.selectedSize || 'no-size'}`,
+                            `${item.id}-${item.selectedSize || "no-size"}`,
                             -1
                           )
                         }
-                        className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
+                        className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
                       >
                         <Minus size={12} />
                       </button>
-                      <span className="w-8 text-center text-sm">
+                      <span className="w-9 text-center text-s">
                         {item.quantity}
                       </span>
                       <button
                         onClick={() =>
                           updateQuantity(
-                            `${item.id}-${item.selectedSize || 'no-size'}`,
+                            `${item.id}-${item.selectedSize || "no-size"}`,
                             1
                           )
                         }
-                        className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
+                        className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
                       >
                         <Plus size={12} />
                       </button>
@@ -369,7 +373,7 @@ export default function POSSystem({
                     <button
                       onClick={() =>
                         removeFromCart(
-                          `${item.id}-${item.selectedSize || 'no-size'}`
+                          `${item.id}-${item.selectedSize || "no-size"}`
                         )
                       }
                       className="text-red-500 hover:text-red-600 p-1"
@@ -388,22 +392,26 @@ export default function POSSystem({
               <div className="bg-white rounded-lg shadow-sm border p-6">
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Subtotal:</span>
-                    <span className="font-medium">{formatPrice(subtotal)}</span>
+                    <span className="text-gray-600 text-lg">Subtotal:</span>
+                    <span className="font-medium text-lg">
+                      {formatPrice(subtotal)}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Tax:</span>
+                    <span className="text-gray-600 text-lg">Tax:</span>
                     <div className="flex items-center space-x-2">
                       <input
                         type="number"
                         value={taxRate}
                         onChange={(e) => setTaxRate(Number(e.target.value))}
-                        className="w-16 px-2 py-1 text-sm border rounded"
+                        className="w-48 px-4 py-2 text-lg border rounded"
                         min="0"
                         max="50"
                       />
-                      <span className="text-sm text-gray-500">%</span>
-                      <span className="font-medium">{formatPrice(tax)}</span>
+                      <span className="text-s text-gray-500">%</span>
+                      <span className="font-medium text-lg">
+                        {formatPrice(tax)}
+                      </span>
                     </div>
                   </div>
                   <div className="border-t pt-3">
@@ -416,30 +424,32 @@ export default function POSSystem({
                   </div>
                   <div className="border-t pt-3 space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Customer Paid:</span>
+                      <span className="text-gray-600 text-lg">
+                        Customer Paid:
+                      </span>
                       <input
                         type="number"
                         value={customerPaid}
                         onChange={(e) =>
                           setCustomerPaid(Number(e.target.value))
                         }
-                        className="w-24 px-2 py-1 text-sm border rounded text-right"
+                        className="w-48 px-4 py-2 text-lg border rounded text-right"
                         min="0"
-                        step={currency === 'KHR' ? '100' : '0.01'}
+                        step={currency === "KHR" ? "100" : "0.01"}
                       />
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Change:</span>
+                      <span className="text-gray-600 text-lg">Change:</span>
                       <span
-                        className={`font-medium ${
+                        className={`font-medium text-lg ${
                           change > 0
-                            ? 'text-green-600'
+                            ? "text-green-600"
                             : customerPaid < convertedTotal
-                            ? 'text-red-600'
-                            : 'text-gray-800'
+                            ? "text-red-600"
+                            : "text-gray-800"
                         }`}
                       >
-                        {currency === 'KHR'
+                        {currency === "KHR"
                           ? `${change.toLocaleString()}៛`
                           : `$${change.toFixed(2)}`}
                       </span>
@@ -450,54 +460,54 @@ export default function POSSystem({
 
               {/* Payment Method */}
               <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h4 className="font-semibold text-gray-800 mb-4">
+                <h1 className="font-semibold text-gray-800 mb-4 text-lg font-bold">
                   Payment Method
-                </h4>
+                </h1>
                 <div className="space-y-3">
                   <label className="flex items-center space-x-3 cursor-pointer">
                     <input
                       type="radio"
                       name="payment"
                       value="cash"
-                      checked={paymentMethod === 'cash'}
+                      checked={paymentMethod === "cash"}
                       onChange={(e) => setPaymentMethod(e.target.value as any)}
                       className="text-blue-500"
                     />
-                    <DollarSign size={18} className="text-green-500" />
-                    <span>Cash</span>
+                    <DollarSign size={20} className="text-green-500" />
+                    <span className="text-lg">Cash</span>
                   </label>
                   <label className="flex items-center space-x-3 cursor-pointer">
                     <input
                       type="radio"
                       name="payment"
                       value="credit"
-                      checked={paymentMethod === 'credit'}
+                      checked={paymentMethod === "credit"}
                       onChange={(e) => setPaymentMethod(e.target.value as any)}
                       className="text-blue-500"
                     />
-                    <CreditCard size={18} className="text-blue-500" />
-                    <span>Credit Card</span>
+                    <CreditCard size={20} className="text-blue-500" />
+                    <span className="text-lg">Credit Card</span>
                   </label>
                   <label className="flex items-center space-x-3 cursor-pointer">
                     <input
                       type="radio"
                       name="payment"
                       value="bank"
-                      checked={paymentMethod === 'bank'}
+                      checked={paymentMethod === "bank"}
                       onChange={(e) => setPaymentMethod(e.target.value as any)}
                       className="text-blue-500"
                     />
-                    <Building size={18} className="text-purple-500" />
-                    <span>Bank Transfer</span>
+                    <Building size={20} className="text-purple-500" />
+                    <span className="text-lg">Bank Transfer</span>
                   </label>
                 </div>
 
-                {paymentMethod === 'bank' && (
+                {paymentMethod === "bank" && (
                   <div className="mt-4 space-y-3">
                     <select
                       value={selectedBank}
                       onChange={(e) => setSelectedBank(e.target.value)}
-                      className="w-full px-3 py-2 border rounded-lg"
+                      className="w-full px-3 py-2 border rounded-lg text-lg"
                     >
                       <option value="">Select Bank</option>
                       {banks.map((bank) => (
@@ -513,7 +523,7 @@ export default function POSSystem({
               {/* Payment Button */}
               <button
                 onClick={processPayment}
-                className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg transition-colors"
+                className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg transition-colors text-lg"
               >
                 Confirm & Print Receipt
               </button>
@@ -557,8 +567,8 @@ export default function POSSystem({
                   onClick={() => setSelectedSize(size)}
                   className={`py-2 px-4 rounded-lg border-2 transition-colors ${
                     selectedSize === size
-                      ? 'border-blue-500 bg-blue-50 text-blue-600'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? "border-blue-500 bg-blue-50 text-blue-600"
+                      : "border-gray-200 hover:border-gray-300"
                   }`}
                 >
                   {size}

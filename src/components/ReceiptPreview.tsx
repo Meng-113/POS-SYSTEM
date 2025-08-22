@@ -1,7 +1,7 @@
-import React from 'react';
-import { X, Printer, Download } from 'lucide-react';
-import { Sale } from '../types';
-import { USD_TO_KHR_RATE } from '../utils/mockData';
+import React from "react";
+import { X, Printer, Download } from "lucide-react";
+import { Sale } from "../types";
+import { USD_TO_KHR_RATE } from "../utils/mockData";
 
 interface ReceiptPreviewProps {
   sale: Sale | null;
@@ -13,10 +13,10 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
 
   const handlePrint = () => {
     // Create a new window for printing
-    const printWindow = window.open('', '_blank');
+    const printWindow = window.open("", "_blank");
     if (!printWindow) return;
 
-    const printContent = document.getElementById('receipt-print-content');
+    const printContent = document.getElementById("receipt-print-content");
     if (printContent) {
       printWindow.document.write(`
         <!DOCTYPE html>
@@ -25,230 +25,281 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
           <title>Receipt - ${sale.receiptNumber}</title>
           <style>
             @page {
-  size: A4;
-  margin: 15mm 8mm;
-}
+              size: A4;
+              margin: 15mm 8mm;
+            }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
 
-body {
-  font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.6;
-  color: #000;              /* 🔹 Force black text */
-  background: #fff;         /* 🔹 White background */
-  -webkit-print-color-adjust: exact;
-  color-adjust: exact;
-  font-size: 16px;          /* 🔹 Bigger base text size */
-  font-weight: 500;         /* 🔹 Thicker base text */
-}
+            body {
+              font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+              line-height: 1.6;
+              color: #000;              /* 🔹 Force black text */
+              background: #fff;         /* 🔹 White background */
+              -webkit-print-color-adjust: exact;
+              color-adjust: exact;
+              font-size: 16px;          /* 🔹 Bigger base text size */
+              font-weight: 500;         /* 🔹 Thicker base text */
+            }
 
-.receipt-container {
-  max-width: 90%;
-  width: 500px;
-  margin: 0 auto;
-  background: #fff;          /* 🔹 Force white */
-  border: 1px solid #000;    /* 🔹 Black border for print clarity */
-  border-radius: 8px;
-  overflow: hidden;
-}
+            .receipt-container {
+              max-width: 90%;
+              width: 500px;
+              margin: 0 auto;
+              background: #fff;          /* 🔹 Force white */
+              border: 1px solid #000;    /* 🔹 Black border for print clarity */
+              border-radius: 8px;
+              overflow: hidden;
+            }
 
-.receipt-header {
-  background: #fff;          /* 🔹 White header */
-  color: #000;               /* 🔹 Black text */
-  padding: 30px 25px;
-  text-align: center;
-}
+            .receipt-header {
+              background: #fff;          /* 🔹 White header */
+              color: #000;               /* 🔹 Black text */
+              padding: 30px 25px;
+              text-align: center;
+            }
 
-.logo {
-  justify-content: center;
-  margin-bottom: 12px;
-  display: flex;
-}
+            .logo {
+              justify-content: center;
+              margin-bottom: 12px;
+              display: flex;
+            }
 
-.logo img {
-  height: 120px;
-  width: auto;
-}
+            .logo img {
+              height: 120px;
+              width: auto;
+            }
 
-.store-name {
-  font-size: 36px;           /* 🔹 Bigger */
-  font-weight: 900;          /* 🔹 Extra bold */
-  margin-bottom: 8px;
-  letter-spacing: -0.5px;
-}
+            .store-name {
+              font-size: 36px;           /* 🔹 Bigger */
+              font-weight: 900;          /* 🔹 Extra bold */
+              margin-bottom: 8px;
+              letter-spacing: -0.5px;
+            }
 
-.store-tagline {
-  font-size: 18px;           /* 🔹 Bigger */
-  font-weight: 700;          /* 🔹 Bolder */
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
+            .store-tagline {
+              font-size: 18px;           /* 🔹 Bigger */
+              font-weight: 700;          /* 🔹 Bolder */
+              text-transform: uppercase;
+              margin-bottom: 10px;
+            }
 
-.store-contact {
-  font-size: 16px;           /* 🔹 Larger */
-  font-weight: 600;          /* 🔹 Bolder */
-  line-height: 1.4;
-  color: #000;               /* 🔹 Black */
-  font-family: 'Khmer OS Battambang', sans-serif; /* 🔹 Khmer font for address */
-}
+            .store-contact {
+              font-size: 16px;           /* 🔹 Larger */
+              font-weight: 600;          /* 🔹 Bolder */
+              line-height: 1.4;
+              color: #000;               /* 🔹 Black */
+              font-family: 'Khmer OS Battambang', sans-serif; /* 🔹 Khmer font for address */
+            }
 
-.receipt-body {
-  padding: 28px;
-}
+            .receipt-body {
+              padding: 28px;
+            }
 
-.transaction-info {
-  background: #fff;          /* 🔹 White background */
-  border-radius: 6px;
-  padding: 18px;
-  margin-bottom: 24px;
-  border-left: 3px solid #000; /* 🔹 Black border */
-}
+            .transaction-info {
+              background: #fff;          /* 🔹 White background */
+              border-radius: 6px;
+              padding: 18px;
+              margin-bottom: 24px;
+              border-left: 3px solid #000; /* 🔹 Black border */
+            }
 
-.info-label,
-.info-value {
-  font-size: 16px;           /* 🔹 Larger font */
-  font-weight: 700;          /* 🔹 Bold */
-  color: #000;               /* 🔹 Black */
-}
+            .info-grid {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 8px;
+            }
 
-.section-title {
-  font-size: 20px;
-  font-weight: 800;
-  color: #000;
-  margin-bottom: 12px;
-  border-bottom: 2px solid #000;
-  padding-bottom: 6px;
-}
+            .info-item {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            }
 
-.item {
-  background: #fff;
-  border: 1px solid #000;     /* 🔹 Black border */
-  border-radius: 6px;
-  padding: 12px;
-  margin-bottom: 10px;
-}
+            .info-label {
+              font-weight: 600;
+              color: #000000ff;
+              font-size: 16px;
+            }
 
-.item-name {
-  font-size: 16px;
-  font-weight: 700;
-  color: #000;
-}
+            .info-value {
+              font-weight: 800;
+              color: #000000ff;
+              font-size: 16px;
+            }
 
-.item-total {
-  font-size: 18px;
-  font-weight: 900;
-  color: #000;                /* 🔹 Changed to black */
-}
-
-.item-details {
-  font-size: 14px;
-  color: #000;                /* 🔹 Black */
-}
-
-.item-size {
-  background: #e5e7eb;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.totals-section {
-  background: #fff;
-  border-radius: 6px;
-  padding: 20px;
-  margin-bottom: 24px;
-  border: 1px solid #000;     /* 🔹 Black border */
-}
-
-.total-row {
-  font-size: 16px;
-  font-weight: 700;
-  color: #000;
-}
-
-.grand-total {
-  font-size: 22px;
-  font-weight: 900;
-  color: #000;
-  border-top: 3px solid #000; /* 🔹 Strong black border */
-  background: #fff;
-  margin-top: 12px;
-  padding: 16px;
-}
-
-.payment-info {
-  background: #fff;
-  border: 1px solid #000;     /* 🔹 Black border */
-  border-radius: 6px;
-  padding: 14px;
-  margin-bottom: 16px;
-}
-
-.payment-method {
-  font-size: 16px;
-  font-weight: 800;
-  color: #000;
-}
-
-.currency-info {
-  font-size: 14px;
-  font-weight: 700;
-  color: #000;
-}
-
-.receipt-footer {
-  text-align: center;
-  border-top: 2px dashed #000; /* 🔹 Black dashed line */
-  padding-top: 14px;
-  color: #000;
-}
-
-.thank-you {
-  font-size: 20px;
-  font-weight: 900;
-  color: #000;
-  margin-bottom: 6px;
-}
-
-.footer-text {
-  font-size: 16px;
-  font-weight: 600;
-  color: #000;
-  margin-bottom: 4px;
-}
-
-.policy-text {
-  font-size: 14px;
-  font-weight: 600;
-  color: #000;
-}
-
-.decorative-line {
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: 700;
-  color: #000;
-  letter-spacing: 3px;
-}
-
-@media print {
-  body { margin: 0; font-size: 14px; }
-  .receipt-container { 
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    width: 100%;
-    max-width: none;
-  }
-  .store-name { font-size: 38px; }
-  .section-title { font-size: 22px; }
-  .grand-total { font-size: 26px; }
-  .thank-you { font-size: 22px; }
-}
-
+            .items-section {
+              margin-bottom: 22px;
+            }
+            
+            .section-title {
+              font-size: 20px;
+              font-weight: 900;
+              color: #000000ff;
+              margin-bottom: 12px;
+              border-bottom: 2px solid rgba(0, 0, 0, 1);
+              padding-bottom: 4px;
+            }
+            
+            .item {
+              background: white;
+              border: 1px solid #000000ff;
+              border-radius: 6px;
+              padding: 12px;
+              margin-bottom: 10px;
+            }
+            
+            .item-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: flex-start;
+              margin-bottom: 4px;
+            }
+            
+            .item-name {
+              font-size: 18px;
+              font-weight: 700;
+              color: #000000ff;
+              flex: 1;
+            }
+            
+            .item-total {
+              font-size: 18px;
+              font-weight: 900;
+              color: #000000ff;
+            }
+            
+            .item-details {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-size: 16px;
+              color: #000000ff;
+            }
+            
+            .item-size {
+              background: #ffffffff;
+              font-size: 15px;
+              font-weight: 750;
+              margin-right: 4px;
+            }
+            
+            .totals-section {
+              background: #ffffffff;
+              border-radius: 6px;
+              padding: 20px;
+              margin-bottom: 24px;
+              border: 1px solid #e5e7eb;
+            }
+            
+            .total-row {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 4px 0;
+              font-size: 13px;
+            }
+            
+            .subtotal-row {
+              font-size: 14px;
+              font-weight: 600;
+              color: #000000ff;
+            }
+            
+            .tax-row {
+              font-size: 14px;
+              font-weight: 600;
+              color: #000000ff;
+              border-bottom: 1px solid #d1d5db;
+              margin-bottom: 6px;
+            }
+            
+            .grand-total {
+              font-size: 18px;
+              font-weight: 800;
+              color: #000000ff;
+              background: white;
+              margin: 10px -14px -14px -14px;
+              padding: 14px;
+              border-top: 2px solid #000000ff;
+            }
+            
+            .payment-info {
+              font-size: 15px;
+              font-weight: 700;
+              background: #ffffffff;
+              border: 1px solid #000000ff;
+              border-radius: 6px;
+              padding: 12px;
+              margin-bottom: 16px;
+            }
+            
+            .payment-method {
+              font-size: 15px;
+              font-weight: 700;
+              color: #000000ff;
+              margin-bottom: 2px;
+            }
+            
+            .currency-info {
+              font-size: 15px;
+              font-weight: 700;
+              color: #000000ff;
+            }
+            
+            .receipt-footer {
+              text-align: center;
+              border-top: 1px dashed #ffffffff;
+              padding-top: 12px;
+              color: #000000ff;
+            }
+            
+            .thank-you {
+              font-size: 16px;
+              font-weight: 700;
+              color: #000000ff;
+              margin-bottom: 4px;
+            }
+            
+            .footer-text {
+              font-size: 12px;
+              margin-bottom: 2px;
+            }
+            
+            .policy-text {
+              font-size: 11px;
+              color: #ffffffff;
+            }
+            
+            .decorative-line {
+              margin-top: 8px;
+              font-size: 12px;
+              letter-spacing: 2px;
+              color: #000000ff;
+            }
+            
+            @media print {
+              body { margin: 0; font-size: 12px; }
+              .receipt-container { 
+                border: none; 
+                border-radius: 0;
+                box-shadow: none;
+                width: 100%;
+                max-width: none;
+              }
+              .receipt-header { padding: 35px; border-radius: 0 0 20px 20px; margin-bottom: 20px;}
+              .receipt-body { padding: 40px; }
+              .store-name { font-size: 35px; }
+              .transaction-info { margin-bottom: 12px; padding: 35px; }
+              .items-section { margin-bottom: 13px; }
+              .totals-section { margin-bottom: 22px; padding: 30px; }
+              .payment-info { margin-bottom: 12px; padding: 25px; }
+              .receipt-footer { padding-top: 10px; }
+            }
           </style>
         </head>
         <body>
@@ -267,7 +318,7 @@ body {
   };
 
   const formatPrice = (price: number) => {
-    if (sale?.currency === 'KHR') {
+    if (sale?.currency === "KHR") {
       const convertedPrice = price * USD_TO_KHR_RATE;
       return `${convertedPrice.toLocaleString()}៛`;
     }
@@ -416,7 +467,7 @@ body {
                           <div className="flex justify-between text-black text-lg font-bold">
                             <span>Customer Paid</span>
                             <span>
-                              {sale.currency === 'KHR'
+                              {sale.currency === "KHR"
                                 ? `${sale.customerPaid.toLocaleString()}៛`
                                 : `$${sale.customerPaid.toFixed(2)}`}
                             </span>
@@ -424,7 +475,7 @@ body {
                           <div className="flex justify-between text-black text-lg font-bold">
                             <span>Change</span>
                             <span>
-                              {sale.currency === 'KHR'
+                              {sale.currency === "KHR"
                                 ? `${(sale.change || 0).toLocaleString()}៛`
                                 : `$${(sale.change || 0).toFixed(2)}`}
                             </span>
@@ -441,21 +492,21 @@ body {
                         Payment Method
                       </span>
                       <span className="text-black font-bold text-lg capitalize">
-                        {sale.paymentMethod === 'bank'
+                        {sale.paymentMethod === "bank"
                           ? `Bank Transfer (${sale.bankName})`
                           : sale.paymentMethod}
                       </span>
                     </div>
                     <div className="text-base text-black text-center font-semibold">
-                      Currency:{' '}
-                      {sale.currency === 'KHR'
-                        ? 'Cambodian Riel (៛)'
-                        : 'US Dollar ($)'}
+                      Currency:{" "}
+                      {sale.currency === "KHR"
+                        ? "Cambodian Riel (៛)"
+                        : "US Dollar ($)"}
                     </div>
                   </div>
 
                   {/* Bank Slip Preview */}
-                  {sale.paymentMethod === 'bank' && sale.bankSlip && (
+                  {sale.paymentMethod === "bank" && sale.bankSlip && (
                     <div className="text-center mb-6 p-4 bg-white rounded-lg border border-gray-300">
                       <h4 className="font-bold mb-3 text-black text-lg">
                         Payment Slip
@@ -593,10 +644,10 @@ body {
 
               {sale.customerPaid && (
                 <>
-                  <div className="total-row" style={{ marginTop: '16px' }}>
+                  <div className="total-row" style={{ marginTop: "16px" }}>
                     <span>Customer Paid</span>
                     <span>
-                      {sale.currency === 'KHR'
+                      {sale.currency === "KHR"
                         ? `${sale.customerPaid.toLocaleString()}៛`
                         : `$${sale.customerPaid.toFixed(2)}`}
                     </span>
@@ -604,7 +655,7 @@ body {
                   <div className="total-row">
                     <span>Change</span>
                     <span>
-                      {sale.currency === 'KHR'
+                      {sale.currency === "KHR"
                         ? `${(sale.change || 0).toLocaleString()}៛`
                         : `$${(sale.change || 0).toFixed(2)}`}
                     </span>
@@ -616,16 +667,20 @@ body {
             {/* Payment Method */}
             <div className="payment-info">
               <div className="payment-method">
-                Payment Method:{' '}
-                {sale.paymentMethod === 'bank'
-                  ? `Bank Transfer (${sale.bankName})`
-                  : sale.paymentMethod}
+                <span style={{ marginRight: "11.4cm" }}>Payment Method : </span>
+                <span>
+                  {sale.paymentMethod === "bank"
+                    ? `Bank Transfer (${sale.bankName})`
+                    : sale.paymentMethod}
+                </span>
               </div>
               <div className="currency-info">
-                Currency:{' '}
-                {sale.currency === 'KHR'
-                  ? 'Cambodian Riel (៛)'
-                  : 'US Dollar ($)'}
+                <span style={{ marginRight: "11.4cm" }}>Currency : </span>
+                <span>
+                  {sale.currency === "KHR"
+                    ? "Cambodian Riel (៛)"
+                    : "US Dollar ($)"}
+                </span>
               </div>
             </div>
 
