@@ -307,7 +307,7 @@ body {
                 <div className="bg-white text-black p-8 text-center">
                   <div className="flex justify-center items-center mb-3 w-full h-[100px]">
                     <img
-                      src="./src/assets/logo.png"
+                      src="/logo.png"
                       alt="Logo"
                       className="h-[120px] w-auto"
                     />
@@ -515,7 +515,7 @@ body {
           {/* Store Header */}
           <div className="receipt-header">
             <div className="logo">
-              <img src="./src/assets/logo.png" alt="" />
+              <img src="/logo.png" alt="" />
             </div>
             <div className="store-name">Teenager Collection</div>
             <div className="store-tagline">Fashion & Style Collection</div>
