@@ -25,266 +25,230 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
           <title>Receipt - ${sale.receiptNumber}</title>
           <style>
             @page {
-              size: A4;
-              margin: 15mm 8mm;
-            }
-            
-            * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-            }
-            
-            body {
-              font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-              line-height: 1.4;
-              color: #1a1a1a;
-              background: white;
-              -webkit-print-color-adjust: exact;
-              color-adjust: exact;
-              font-size: 14px;
-            }
-            
-            .receipt-container {
-              max-width: 90%;
-              width: 500px;
-              margin: 0 auto;
-              background: white;
-              border: 1px solid #e5e7eb;
-              border-radius: 8px;
-              overflow: hidden;
-            }
-            
-            .receipt-header {
-              // background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
-              // background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-              color: Black;
-              padding: 29px 25px;
-              text-align: center;
-            }
-            
-            .store-name {
-              font-size: 32px;
-              font-weight: 800;
-              margin-bottom: 6px;
-              letter-spacing: -0.5px;
-            }
-            
-            .store-tagline {
-              font-size: 14px;
-              opacity: 0.9;
-              margin-bottom: 8px;
-              text-transform: uppercase;
-              letter-spacing: 1px;
-              font-weight: 500;
-            }
-            
-            .store-contact {
-              font-size: 15px;
-              opacity: 0.8;
-              line-height: 1.2;
-              font-family: 'Khmer OS Battambang', sans-serif;
-            }
-            
-            .receipt-body {
-              padding: 24px;
-            }
-            
-            .transaction-info {
-              background: #f8fafc;
-              border-radius: 6px;
-              padding: 15px;
-              margin-bottom: 24px;
-              border-left: 3px solid #2563eb;
-            }
-            
-            .info-grid {
-              display: grid;
-              grid-template-columns: 1fr 1fr;
-              gap: 8px;
-            }
-            
-            .info-item {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-            }
-            
-            .info-label {
-              font-weight: 600;
-              color: #374151;
-              font-size: 12px;
-            }
-            
-            .info-value {
-              font-weight: 500;
-              color: #1f2937;
-              font-size: 12px;
-            }
-            
-            .items-section {
-              margin-bottom: 22px;
-            }
-            
-            .section-title {
-              font-size: 16px;
-              font-weight: 700;
-              color: #1f2937;
-              margin-bottom: 10px;
-              border-bottom: 1px solid #e5e7eb;
-              padding-bottom: 4px;
-            }
-            
-            .item {
-              background: white;
-              border: 1px solid #e5e7eb;
-              border-radius: 6px;
-              padding: 10px;
-              margin-bottom: 8px;
-            }
-            
-            .item-header {
-              display: flex;
-              justify-content: space-between;
-              align-items: flex-start;
-              margin-bottom: 4px;
-            }
-            
-            .item-name {
-              font-size: 14px;
-              font-weight: 600;
-              color: #1f2937;
-              flex: 1;
-            }
-            
-            .item-total {
-              font-size: 15px;
-              font-weight: 700;
-              color: #059669;
-            }
-            
-            .item-details {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              font-size: 12px;
-              color: #6b7280;
-            }
-            
-            .item-size {
-              background: #e5e7eb;
-              padding: 2px 6px;
-              border-radius: 3px;
-              font-size: 11px;
-              font-weight: 500;
-              margin-right: 6px;
-            }
-            
-            .totals-section {
-              background: #f9fafb;
-              border-radius: 6px;
-              padding: 16px;
-              margin-bottom: 24px;
-              border: 1px solid #e5e7eb;
-            }
-            
-            .total-row {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              padding: 4px 0;
-              font-size: 13px;
-            }
-            
-            .subtotal-row {
-              color: #6b7280;
-            }
-            
-            .tax-row {
-              color: #6b7280;
-              border-bottom: 1px solid #d1d5db;
-              margin-bottom: 6px;
-            }
-            
-            .grand-total {
-              font-size: 18px;
-              font-weight: 800;
-              color: #1f2937;
-              background: white;
-              margin: 10px -14px -14px -14px;
-              padding: 14px;
-              border-top: 2px solid #2563eb;
-            }
-            
-            .payment-info {
-              background: #fef3c7;
-              border: 1px solid #f59e0b;
-              border-radius: 6px;
-              padding: 12px;
-              margin-bottom: 16px;
-            }
-            
-            .payment-method {
-              font-weight: 600;
-              color: #92400e;
-              margin-bottom: 2px;
-              font-size: 12px;
-            }
-            
-            .currency-info {
-              font-size: 11px;
-              color: #a16207;
-            }
-            
-            .receipt-footer {
-              text-align: center;
-              border-top: 1px dashed #d1d5db;
-              padding-top: 12px;
-              color: #6b7280;
-            }
-            
-            .thank-you {
-              font-size: 16px;
-              font-weight: 700;
-              color: #2563eb;
-              margin-bottom: 4px;
-            }
-            
-            .footer-text {
-              font-size: 12px;
-              margin-bottom: 2px;
-            }
-            
-            .policy-text {
-              font-size: 11px;
-              color: #9ca3af;
-            }
-            
-            .decorative-line {
-              margin-top: 8px;
-              font-size: 12px;
-              letter-spacing: 2px;
-              color: #d1d5db;
-            }
-            
-            @media print {
-              body { margin: 0; font-size: 12px; }
-              .receipt-container { 
-                border: none; 
-                border-radius: 0;
-                box-shadow: none;
-                width: 100%;
-                max-width: none;
-              }
-              .receipt-header { padding: 35px; border-radius: 0 0 20px 20px; margin-bottom: 20px;}
-              .receipt-body { padding: 40px; }
-              .store-name { font-size: 35px; }
-              .transaction-info { margin-bottom: 12px; padding: 35px; }
-              .items-section { margin-bottom: 13px; }
-              .totals-section { margin-bottom: 22px; padding: 30px; }
-              .payment-info { margin-bottom: 12px; padding: 25px; }
-              .receipt-footer { padding-top: 10px; }
-            }
+  size: A4;
+  margin: 15mm 8mm;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  color: #000;              /* 🔹 Force black text */
+  background: #fff;         /* 🔹 White background */
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
+  font-size: 16px;          /* 🔹 Bigger base text size */
+  font-weight: 500;         /* 🔹 Thicker base text */
+}
+
+.receipt-container {
+  max-width: 90%;
+  width: 500px;
+  margin: 0 auto;
+  background: #fff;          /* 🔹 Force white */
+  border: 1px solid #000;    /* 🔹 Black border for print clarity */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.receipt-header {
+  background: #fff;          /* 🔹 White header */
+  color: #000;               /* 🔹 Black text */
+  padding: 30px 25px;
+  text-align: center;
+}
+
+.logo {
+  justify-content: center;
+  margin-bottom: 12px;
+  display: flex;
+}
+
+.logo img {
+  height: 120px;
+  width: auto;
+}
+
+.store-name {
+  font-size: 36px;           /* 🔹 Bigger */
+  font-weight: 900;          /* 🔹 Extra bold */
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.store-tagline {
+  font-size: 18px;           /* 🔹 Bigger */
+  font-weight: 700;          /* 🔹 Bolder */
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.store-contact {
+  font-size: 16px;           /* 🔹 Larger */
+  font-weight: 600;          /* 🔹 Bolder */
+  line-height: 1.4;
+  color: #000;               /* 🔹 Black */
+  font-family: 'Khmer OS Battambang', sans-serif; /* 🔹 Khmer font for address */
+}
+
+.receipt-body {
+  padding: 28px;
+}
+
+.transaction-info {
+  background: #fff;          /* 🔹 White background */
+  border-radius: 6px;
+  padding: 18px;
+  margin-bottom: 24px;
+  border-left: 3px solid #000; /* 🔹 Black border */
+}
+
+.info-label,
+.info-value {
+  font-size: 16px;           /* 🔹 Larger font */
+  font-weight: 700;          /* 🔹 Bold */
+  color: #000;               /* 🔹 Black */
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #000;
+  padding-bottom: 6px;
+}
+
+.item {
+  background: #fff;
+  border: 1px solid #000;     /* 🔹 Black border */
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.item-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+}
+
+.item-total {
+  font-size: 18px;
+  font-weight: 900;
+  color: #000;                /* 🔹 Changed to black */
+}
+
+.item-details {
+  font-size: 14px;
+  color: #000;                /* 🔹 Black */
+}
+
+.item-size {
+  background: #e5e7eb;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.totals-section {
+  background: #fff;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid #000;     /* 🔹 Black border */
+}
+
+.total-row {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+}
+
+.grand-total {
+  font-size: 22px;
+  font-weight: 900;
+  color: #000;
+  border-top: 3px solid #000; /* 🔹 Strong black border */
+  background: #fff;
+  margin-top: 12px;
+  padding: 16px;
+}
+
+.payment-info {
+  background: #fff;
+  border: 1px solid #000;     /* 🔹 Black border */
+  border-radius: 6px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.payment-method {
+  font-size: 16px;
+  font-weight: 800;
+  color: #000;
+}
+
+.currency-info {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+}
+
+.receipt-footer {
+  text-align: center;
+  border-top: 2px dashed #000; /* 🔹 Black dashed line */
+  padding-top: 14px;
+  color: #000;
+}
+
+.thank-you {
+  font-size: 20px;
+  font-weight: 900;
+  color: #000;
+  margin-bottom: 6px;
+}
+
+.footer-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 4px;
+}
+
+.policy-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+}
+
+.decorative-line {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: 3px;
+}
+
+@media print {
+  body { margin: 0; font-size: 14px; }
+  .receipt-container { 
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+    max-width: none;
+  }
+  .store-name { font-size: 38px; }
+  .section-title { font-size: 22px; }
+  .grand-total { font-size: 26px; }
+  .thank-you { font-size: 22px; }
+}
+
           </style>
         </head>
         <body>
@@ -336,19 +300,28 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
           </div>
 
           {/* Receipt Preview Content */}
-          <div className="flex-1 overflow-y-auto p-8 bg-gray-50">
+          <div className="flex-1 overflow-y-auto p-8 bg-white">
             <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
               <div id="receipt-content-preview">
                 {/* Store Header */}
-                <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8 text-center">
-                  <h1 className="text-3xl font-bold mb-2">
+                <div className="bg-white text-black p-8 text-center">
+                  <div className="flex justify-center items-center mb-3 w-full h-[100px]">
+                    <img
+                      src="./src/assets/logo.png"
+                      alt="Logo"
+                      className="h-[120px] w-auto"
+                    />
+                  </div>
+                  <h1 className="text-4xl font-extrabold mb-2">
                     Teenager Collection
                   </h1>
-                  <p className="text-blue-100 text-sm uppercase tracking-wider font-medium mb-3">
+                  <p className="text-black text-lg uppercase tracking-wider font-bold mb-3">
                     Fashion & Style Collection
                   </p>
-                  <p className="text-blue-200 text-sm">📞 010 414 418</p>
-                  <p className="text-blue-200 text-sm font-khmer">
+                  <p className="text-black text-base font-semibold">
+                    📞 010 414 418
+                  </p>
+                  <p className="text-black text-base font-semibold font-khmer">
                     📍Home Number 10Eo ផ្លូវ 608 សង្កាត់បឹងកក់២ ខណ្ឌទួលគោក
                     រាជធានីភ្នំពេញ
                   </p>
@@ -357,54 +330,62 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
                 {/* Receipt Body */}
                 <div className="p-6">
                   {/* Transaction Info */}
-                  <div className="bg-gray-50 rounded-lg p-5 mb-6 border-l-4 border-blue-500">
+                  <div className="bg-white rounded-lg p-5 mb-6 border-l-4 border-black">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="flex justify-between">
-                        <span className="text-gray-600 font-medium">
+                        <span className="text-black font-bold text-lg">
                           Receipt #
                         </span>
-                        <span className="font-semibold">
+                        <span className="font-extrabold text-lg">
                           {sale.receiptNumber}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600 font-medium">Date</span>
-                        <span className="font-semibold">{sale.date}</span>
+                        <span className="text-black font-bold text-lg">
+                          Date
+                        </span>
+                        <span className="font-extrabold text-lg">
+                          {sale.date}
+                        </span>
                       </div>
                       <div className="flex justify-between col-span-2">
-                        <span className="text-gray-600 font-medium">Time</span>
-                        <span className="font-semibold">{sale.time}</span>
+                        <span className="text-black font-bold text-lg">
+                          Time
+                        </span>
+                        <span className="font-extrabold text-lg">
+                          {sale.time}
+                        </span>
                       </div>
                     </div>
                   </div>
 
                   {/* Items */}
                   <div className="mb-6">
-                    <h3 className="text-lg font-bold text-gray-800 mb-4 border-b-2 border-gray-200 pb-2">
+                    <h3 className="text-xl font-extrabold text-black mb-4 border-b-2 border-gray-300 pb-2">
                       Items Purchased
                     </h3>
                     <div className="space-y-3">
                       {sale.items.map((item, index) => (
                         <div
                           key={index}
-                          className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                          className="bg-white border border-gray-300 rounded-lg p-4"
                         >
                           <div className="flex justify-between items-start mb-2">
                             <div className="flex-1">
-                              <h4 className="font-semibold text-gray-800">
+                              <h4 className="font-bold text-black text-lg">
                                 {item.name}
                               </h4>
                               {item.selectedSize && (
-                                <span className="inline-block bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded mt-1">
+                                <span className="inline-block bg-gray-100 text-black text-sm px-2 py-1 rounded mt-1 font-medium">
                                   Size: {item.selectedSize}
                                 </span>
                               )}
                             </div>
-                            <div className="text-lg font-bold text-green-600">
+                            <div className="text-xl font-extrabold text-black">
                               {formatPrice(item.price * item.quantity)}
                             </div>
                           </div>
-                          <div className="flex justify-between text-sm text-gray-500">
+                          <div className="flex justify-between text-base text-black">
                             <span>
                               {formatPrice(item.price)} × {item.quantity}
                             </span>
@@ -415,24 +396,24 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
                   </div>
 
                   {/* Totals */}
-                  <div className="bg-gray-50 rounded-lg p-5 mb-6 border border-gray-200">
+                  <div className="bg-white rounded-lg p-5 mb-6 border border-gray-300">
                     <div className="space-y-3">
-                      <div className="flex justify-between text-gray-600">
+                      <div className="flex justify-between text-black text-lg font-bold">
                         <span>Subtotal</span>
                         <span>{formatPrice(sale.subtotal)}</span>
                       </div>
-                      <div className="flex justify-between text-gray-600 pb-3 border-b border-gray-300">
+                      <div className="flex justify-between text-black text-lg font-bold pb-3 border-b border-gray-400">
                         <span>Tax</span>
                         <span>{formatPrice(sale.tax)}</span>
                       </div>
-                      <div className="flex justify-between text-2xl font-bold text-gray-800 bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                      <div className="flex justify-between text-3xl font-extrabold text-black bg-white p-4 rounded-lg border-l-4 border-black">
                         <span>Grand Total</span>
                         <span>{formatPrice(sale.total)}</span>
                       </div>
 
                       {sale.customerPaid && (
-                        <div className="pt-3 border-t border-gray-300 space-y-2">
-                          <div className="flex justify-between text-gray-600">
+                        <div className="pt-3 border-t border-gray-400 space-y-2">
+                          <div className="flex justify-between text-black text-lg font-bold">
                             <span>Customer Paid</span>
                             <span>
                               {sale.currency === 'KHR'
@@ -440,7 +421,7 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
                                 : `$${sale.customerPaid.toFixed(2)}`}
                             </span>
                           </div>
-                          <div className="flex justify-between text-gray-600">
+                          <div className="flex justify-between text-black text-lg font-bold">
                             <span>Change</span>
                             <span>
                               {sale.currency === 'KHR'
@@ -454,18 +435,18 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
                   </div>
 
                   {/* Payment Method */}
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                  <div className="bg-white border border-gray-300 rounded-lg p-4 mb-6">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="font-semibold text-yellow-800">
+                      <span className="font-bold text-black text-lg">
                         Payment Method
                       </span>
-                      <span className="text-yellow-700 capitalize">
+                      <span className="text-black font-bold text-lg capitalize">
                         {sale.paymentMethod === 'bank'
                           ? `Bank Transfer (${sale.bankName})`
                           : sale.paymentMethod}
                       </span>
                     </div>
-                    <div className="text-sm text-yellow-600 text-center">
+                    <div className="text-base text-black text-center font-semibold">
                       Currency:{' '}
                       {sale.currency === 'KHR'
                         ? 'Cambodian Riel (៛)'
@@ -475,28 +456,30 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
 
                   {/* Bank Slip Preview */}
                   {sale.paymentMethod === 'bank' && sale.bankSlip && (
-                    <div className="text-center mb-6 p-4 bg-blue-50 rounded-lg">
-                      <h4 className="font-semibold mb-3 text-blue-800">
+                    <div className="text-center mb-6 p-4 bg-white rounded-lg border border-gray-300">
+                      <h4 className="font-bold mb-3 text-black text-lg">
                         Payment Slip
                       </h4>
                       <img
                         src={sale.bankSlip}
                         alt="Payment Slip"
-                        className="max-w-40 mx-auto rounded-lg border-2 border-blue-200"
+                        className="max-w-40 mx-auto rounded-lg border-2 border-gray-300"
                       />
                     </div>
                   )}
 
                   {/* Footer */}
-                  <div className="text-center border-t-2 border-dashed border-gray-300 pt-6">
-                    <h3 className="text-xl font-bold text-blue-600 mb-2">
+                  <div className="text-center border-t-2 border-dashed border-gray-400 pt-6">
+                    <h3 className="text-2xl font-extrabold text-black mb-2">
                       Thank you for shopping with us!
                     </h3>
-                    <p className="text-gray-600 mb-1">Visit us again soon</p>
-                    <p className="text-sm text-gray-500 mb-4">
+                    <p className="text-black text-lg font-medium mb-1">
+                      Visit us again soon
+                    </p>
+                    <p className="text-base text-black mb-4 font-medium">
                       Exchange policy: 7 days with receipt
                     </p>
-                    <div className="text-gray-300 text-lg tracking-widest">
+                    <div className="text-gray-400 text-lg tracking-widest font-bold">
                       ═══════════════════════════════
                     </div>
                   </div>
@@ -506,11 +489,11 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
           </div>
 
           {/* Footer Actions */}
-          <div className="border-t bg-gray-50 p-6">
+          <div className="border-t bg-white p-6">
             <div className="flex space-x-4 max-w-2xl mx-auto">
               <button
                 onClick={onClose}
-                className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-3 px-6 rounded-lg transition-colors"
+                className="flex-1 bg-gray-200 hover:bg-gray-300 text-black font-bold py-3 px-6 rounded-lg transition-colors"
               >
                 Close
               </button>
@@ -518,7 +501,7 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
                 onClick={handlePrint}
                 className="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg flex items-center justify-center space-x-2 transition-colors shadow-md hover:shadow-lg"
               >
-                <Printer size={18} />
+                <Printer size={20} />
                 <span>Print Receipt</span>
               </button>
             </div>
@@ -531,6 +514,9 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
         <div className="receipt-container">
           {/* Store Header */}
           <div className="receipt-header">
+            <div className="logo">
+              <img src="./src/assets/logo.png" alt="" />
+            </div>
             <div className="store-name">Teenager Collection</div>
             <div className="store-tagline">Fashion & Style Collection</div>
             <div className="store-contact">
