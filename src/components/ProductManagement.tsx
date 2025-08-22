@@ -177,7 +177,7 @@ export default function ProductManagement({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by name or price (e.g., 'White Shirt' or '299')"
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-khmer"
           />
         </div>
       </div>
@@ -188,7 +188,7 @@ export default function ProductManagement({
           <button
             key={category}
             onClick={() => setFilterCategory(category)}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            className={`px-4 py-2 rounded-lg font-medium transition-colors font-khmer ${
               filterCategory === category
                 ? "bg-blue-500 text-white"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -239,10 +239,12 @@ export default function ProductManagement({
               </div>
 
               <div className="space-y-2">
-                <h3 className="font-semibold text-gray-800 truncate">
+                <h3 className="font-semibold text-gray-800 truncate font-khmer">
                   {product.name}
                 </h3>
-                <p className="text-sm text-gray-600">{product.category}</p>
+                <p className="text-sm text-gray-600 font-khmer">
+                  {product.category}
+                </p>
                 {product.sizes && product.sizes.length > 0 && (
                   <p className="text-xs text-blue-600">
                     Sizes: {product.sizes.join(", ")}
@@ -319,7 +321,7 @@ export default function ProductManagement({
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-khmer"
                   required
                 />
               </div>
@@ -333,7 +335,7 @@ export default function ProductManagement({
                   onChange={(e) =>
                     setFormData({ ...formData, category: e.target.value })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-khmer"
                 >
                   {categories.map((category) => (
                     <option key={category.id} value={category.name}>

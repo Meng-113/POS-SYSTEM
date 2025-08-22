@@ -165,6 +165,7 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
               font-weight: 700;
               color: #000000ff;
               flex: 1;
+              font-family: 'Khmer OS Battambang', sans-serif;
             }
             
             .item-total {
@@ -423,7 +424,7 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
                         >
                           <div className="flex justify-between items-start mb-2">
                             <div className="flex-1">
-                              <h4 className="font-bold text-black text-lg">
+                              <h4 className="font-bold text-black text-lg font-khmer">
                                 {item.name}
                               </h4>
                               {item.selectedSize && (
@@ -667,7 +668,7 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
             {/* Payment Method */}
             <div className="payment-info">
               <div className="payment-method">
-                <span style={{ marginRight: "11.4cm" }}>Payment Method : </span>
+                <span style={{ marginRight: "13cm" }}>Payment Method : </span>
                 <span>
                   {sale.paymentMethod === "bank"
                     ? `Bank Transfer (${sale.bankName})`
@@ -675,7 +676,7 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
                 </span>
               </div>
               <div className="currency-info">
-                <span style={{ marginRight: "11.4cm" }}>Currency : </span>
+                <span style={{ marginRight: "13cm" }}>Currency : </span>
                 <span>
                   {sale.currency === "KHR"
                     ? "Cambodian Riel (៛)"
