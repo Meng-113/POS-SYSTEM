@@ -1,25 +1,38 @@
-import React, { useState } from "react";
-import { ShoppingBag, Lock, User } from "lucide-react";
+import React, { useState, useEffect } from 'react';
+import { ShoppingBag, Lock, User } from 'lucide-react';
 
 interface LoginProps {
   onLogin: (username: string, password: string) => void;
 }
 
 export default function Login({ onLogin }: LoginProps) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (isLoading) return;
 
-    // Simulate API call
+    setIsLoading(true);
     setTimeout(() => {
       onLogin(username, password);
       setIsLoading(false);
     }, 1000);
   };
+
+  // ✅ Global Enter key = Login
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSubmit();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [username, password, isLoading]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -78,9 +91,16 @@ export default function Login({ onLogin }: LoginProps) {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
           >
-            {isLoading ? "Logging in..." : "Login"}
+            {isLoading ? (
+              <div className="flex items-center space-x-2">
+                <span className="animate-bounce">🐇</span>
+                <span className="text-white">Logging in...</span>
+              </div>
+            ) : (
+              'Login'
+            )}
           </button>
         </form>
       </div>

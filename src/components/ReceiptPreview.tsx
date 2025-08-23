@@ -1,7 +1,7 @@
-import React from "react";
-import { X, Printer, Download } from "lucide-react";
-import { Sale } from "../types";
-import { USD_TO_KHR_RATE } from "../utils/mockData";
+import React from 'react';
+import { X, Printer, Download } from 'lucide-react';
+import { Sale } from '../types';
+import { USD_TO_KHR_RATE } from '../utils/mockData';
 
 interface ReceiptPreviewProps {
   sale: Sale | null;
@@ -13,10 +13,10 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
 
   const handlePrint = () => {
     // Create a new window for printing
-    const printWindow = window.open("", "_blank");
+    const printWindow = window.open('', '_blank');
     if (!printWindow) return;
 
-    const printContent = document.getElementById("receipt-print-content");
+    const printContent = document.getElementById('receipt-print-content');
     if (printContent) {
       printWindow.document.write(`
         <!DOCTYPE html>
@@ -317,9 +317,29 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
       };
     }
   };
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!sale) return;
+
+      // Press Enter = Print
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handlePrint();
+      }
+
+      // Press Shift+Enter = Close
+      if (e.key === 'Enter' && e.shiftKey) {
+        e.preventDefault();
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [sale, onClose]);
 
   const formatPrice = (price: number) => {
-    if (sale?.currency === "KHR") {
+    if (sale?.currency === 'KHR') {
       const convertedPrice = price * USD_TO_KHR_RATE;
       return `${convertedPrice.toLocaleString()}៛`;
     }
@@ -468,7 +488,7 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
                           <div className="flex justify-between text-black text-lg font-bold">
                             <span>Customer Paid</span>
                             <span>
-                              {sale.currency === "KHR"
+                              {sale.currency === 'KHR'
                                 ? `${sale.customerPaid.toLocaleString()}៛`
                                 : `$${sale.customerPaid.toFixed(2)}`}
                             </span>
@@ -476,7 +496,7 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
                           <div className="flex justify-between text-black text-lg font-bold">
                             <span>Change</span>
                             <span>
-                              {sale.currency === "KHR"
+                              {sale.currency === 'KHR'
                                 ? `${(sale.change || 0).toLocaleString()}៛`
                                 : `$${(sale.change || 0).toFixed(2)}`}
                             </span>
@@ -493,21 +513,21 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
                         Payment Method
                       </span>
                       <span className="text-black font-bold text-lg capitalize">
-                        {sale.paymentMethod === "bank"
+                        {sale.paymentMethod === 'bank'
                           ? `Bank Transfer (${sale.bankName})`
                           : sale.paymentMethod}
                       </span>
                     </div>
                     <div className="text-base text-black text-center font-semibold">
-                      Currency:{" "}
-                      {sale.currency === "KHR"
-                        ? "Cambodian Riel (៛)"
-                        : "US Dollar ($)"}
+                      Currency:{' '}
+                      {sale.currency === 'KHR'
+                        ? 'Cambodian Riel (៛)'
+                        : 'US Dollar ($)'}
                     </div>
                   </div>
 
                   {/* Bank Slip Preview */}
-                  {sale.paymentMethod === "bank" && sale.bankSlip && (
+                  {sale.paymentMethod === 'bank' && sale.bankSlip && (
                     <div className="text-center mb-6 p-4 bg-white rounded-lg border border-gray-300">
                       <h4 className="font-bold mb-3 text-black text-lg">
                         Payment Slip
@@ -645,10 +665,10 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
 
               {sale.customerPaid && (
                 <>
-                  <div className="total-row" style={{ marginTop: "16px" }}>
+                  <div className="total-row" style={{ marginTop: '16px' }}>
                     <span>Customer Paid</span>
                     <span>
-                      {sale.currency === "KHR"
+                      {sale.currency === 'KHR'
                         ? `${sale.customerPaid.toLocaleString()}៛`
                         : `$${sale.customerPaid.toFixed(2)}`}
                     </span>
@@ -656,7 +676,7 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
                   <div className="total-row">
                     <span>Change</span>
                     <span>
-                      {sale.currency === "KHR"
+                      {sale.currency === 'KHR'
                         ? `${(sale.change || 0).toLocaleString()}៛`
                         : `$${(sale.change || 0).toFixed(2)}`}
                     </span>
@@ -668,19 +688,19 @@ export default function ReceiptPreview({ sale, onClose }: ReceiptPreviewProps) {
             {/* Payment Method */}
             <div className="payment-info">
               <div className="payment-method">
-                <span style={{ marginRight: "13cm" }}>Payment Method : </span>
+                <span style={{ marginRight: '13cm' }}>Payment Method : </span>
                 <span>
-                  {sale.paymentMethod === "bank"
+                  {sale.paymentMethod === 'bank'
                     ? `Bank Transfer (${sale.bankName})`
                     : sale.paymentMethod}
                 </span>
               </div>
               <div className="currency-info">
-                <span style={{ marginRight: "13cm" }}>Currency : </span>
+                <span style={{ marginRight: '13cm' }}>Currency : </span>
                 <span>
-                  {sale.currency === "KHR"
-                    ? "Cambodian Riel (៛)"
-                    : "US Dollar ($)"}
+                  {sale.currency === 'KHR'
+                    ? 'Cambodian Riel (៛)'
+                    : 'US Dollar ($)'}
                 </span>
               </div>
             </div>

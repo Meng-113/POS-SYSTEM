@@ -11,3 +11,4 @@ export default {
   plugins: [],
 };
 // This configuration file sets up Tailwind CSS for a project, extending the default theme with a custom font family for Khmer text.
+

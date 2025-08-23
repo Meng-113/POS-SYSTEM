@@ -1,5 +1,5 @@
-import React from "react";
-import { ShoppingCart, Package, History, Settings } from "lucide-react";
+import React from 'react';
+import { ShoppingCart, Package, History, Settings } from 'lucide-react';
 
 interface SidebarProps {
   activeSection: string;
@@ -11,10 +11,10 @@ export default function Sidebar({
   onSectionChange,
 }: SidebarProps) {
   const menuItems = [
-    { id: "pos", label: "POS", icon: ShoppingCart },
-    { id: "products", label: "Products", icon: Package },
-    { id: "history", label: "History", icon: History },
-    { id: "settings", label: "Settings", icon: Settings },
+    { id: 'pos', label: 'POS', icon: ShoppingCart },
+    { id: 'products', label: 'Products', icon: Package },
+    { id: 'history', label: 'History', icon: History },
+    { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
   return (
@@ -29,8 +29,8 @@ export default function Sidebar({
                 onClick={() => onSectionChange(item.id)}
                 className={`w-full flex items-center space-x-3 px-4 py-3 text-left rounded-lg transition-colors ${
                   activeSection === item.id
-                    ? "bg-blue-100 text-blue-600 border border-blue-200"
-                    : "text-gray-600 hover:bg-gray-100"
+                    ? 'bg-blue-100 text-blue-600 border border-blue-200'
+                    : 'text-gray-600 hover:bg-gray-100'
                 }`}
               >
                 <Icon size={20} />
