@@ -6,8 +6,7 @@ export const mockProducts: Product[] = [
     name: 'Shirt',
     category: 'Shirts',
     price: 3,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -15,8 +14,7 @@ export const mockProducts: Product[] = [
     name: 'Shirt',
     category: 'Shirts',
     price: 4,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -24,8 +22,7 @@ export const mockProducts: Product[] = [
     name: 'Shirt',
     category: 'Shirts',
     price: 5,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -89,7 +86,7 @@ export const mockProducts: Product[] = [
     name: 'Shirt',
     category: 'Shirts',
     price: 13,
-    image: '/shirt_13.jpg',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -193,8 +190,7 @@ export const mockProducts: Product[] = [
     name: 'Sets',
     category: 'Sets',
     price: 13,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -203,8 +199,7 @@ export const mockProducts: Product[] = [
     name: 'Sets',
     category: 'Sets',
     price: 14,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -213,8 +208,7 @@ export const mockProducts: Product[] = [
     name: 'Sets',
     category: 'Sets',
     price: 15,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -223,8 +217,7 @@ export const mockProducts: Product[] = [
     name: 'Sets',
     category: 'Sets',
     price: 16,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -233,8 +226,7 @@ export const mockProducts: Product[] = [
     name: 'Sets',
     category: 'Sets',
     price: 17,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -243,8 +235,7 @@ export const mockProducts: Product[] = [
     name: 'Sets',
     category: 'Sets',
     price: 18,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -253,8 +244,7 @@ export const mockProducts: Product[] = [
     name: 'Sets',
     category: 'Sets',
     price: 19,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -263,8 +253,7 @@ export const mockProducts: Product[] = [
     name: 'Sets',
     category: 'Sets',
     price: 20,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -273,8 +262,7 @@ export const mockProducts: Product[] = [
     name: 'Sets',
     category: 'Sets',
     price: 21,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -283,8 +271,7 @@ export const mockProducts: Product[] = [
     name: 'Sets',
     category: 'Sets',
     price: 22,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -293,8 +280,7 @@ export const mockProducts: Product[] = [
     name: 'Bags',
     category: 'Bags',
     price: 5,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -302,8 +288,7 @@ export const mockProducts: Product[] = [
     name: 'Bags',
     category: 'Bags',
     price: 6,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -311,8 +296,7 @@ export const mockProducts: Product[] = [
     name: 'Bags',
     category: 'Bags',
     price: 7,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -320,8 +304,7 @@ export const mockProducts: Product[] = [
     name: 'Bags',
     category: 'Bags',
     price: 8,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -377,8 +360,7 @@ export const mockProducts: Product[] = [
     name: 'Dresses',
     category: 'Dresses',
     price: 12,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -387,8 +369,7 @@ export const mockProducts: Product[] = [
     name: 'Dresses',
     category: 'Dresses',
     price: 13,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -397,8 +378,7 @@ export const mockProducts: Product[] = [
     name: 'Dresses',
     category: 'Dresses',
     price: 14,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -407,8 +387,7 @@ export const mockProducts: Product[] = [
     name: 'Dresses',
     category: 'Dresses',
     price: 15,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -417,8 +396,7 @@ export const mockProducts: Product[] = [
     name: 'Dresses',
     category: 'Dresses',
     price: 16,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -427,8 +405,7 @@ export const mockProducts: Product[] = [
     name: 'Pants',
     category: 'Pants',
     price: 5,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -437,8 +414,7 @@ export const mockProducts: Product[] = [
     name: 'Pants',
     category: 'Pants',
     price: 6,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -447,8 +423,7 @@ export const mockProducts: Product[] = [
     name: 'Pants',
     category: 'Pants',
     price: 7,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -457,8 +432,7 @@ export const mockProducts: Product[] = [
     name: 'Pants',
     category: 'Pants',
     price: 8,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -467,8 +441,7 @@ export const mockProducts: Product[] = [
     name: 'Pants',
     category: 'Pants',
     price: 9,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -477,8 +450,7 @@ export const mockProducts: Product[] = [
     name: 'Pants',
     category: 'Pants',
     price: 10,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -487,8 +459,7 @@ export const mockProducts: Product[] = [
     name: 'Pants',
     category: 'Pants',
     price: 11,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -497,8 +468,7 @@ export const mockProducts: Product[] = [
     name: 'Pants',
     category: 'Pants',
     price: 12,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -507,8 +477,7 @@ export const mockProducts: Product[] = [
     name: 'Pants',
     category: 'Pants',
     price: 13,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -517,8 +486,7 @@ export const mockProducts: Product[] = [
     name: 'Shoes',
     category: 'Shoes',
     price: 8,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['36', '37', '38', '39'],
   },
@@ -527,8 +495,7 @@ export const mockProducts: Product[] = [
     name: 'Shoes',
     category: 'Shoes',
     price: 9,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['36', '37', '38', '39'],
   },
@@ -537,8 +504,7 @@ export const mockProducts: Product[] = [
     name: 'Shoes',
     category: 'Shoes',
     price: 10,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['36', '37', '38', '39'],
   },
@@ -583,8 +549,7 @@ export const mockProducts: Product[] = [
     name: 'Shoes',
     category: 'Shoes',
     price: 15,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['36', '37', '38', '39'],
   },
@@ -593,8 +558,7 @@ export const mockProducts: Product[] = [
     name: 'Shoes',
     category: 'Shoes',
     price: 16,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['36', '37', '38', '39'],
   },
@@ -611,8 +575,7 @@ export const mockProducts: Product[] = [
     name: 'Skirts',
     category: 'Skirts',
     price: 9,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -630,8 +593,7 @@ export const mockProducts: Product[] = [
     name: 'Skirts',
     category: 'Skirts',
     price: 11,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -640,8 +602,7 @@ export const mockProducts: Product[] = [
     name: 'Skirts',
     category: 'Skirts',
     price: 12,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -650,8 +611,7 @@ export const mockProducts: Product[] = [
     name: 'Skirts',
     category: 'Skirts',
     price: 13,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -660,8 +620,7 @@ export const mockProducts: Product[] = [
     name: 'Hat',
     category: 'Hat',
     price: 6,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -693,8 +652,7 @@ export const mockProducts: Product[] = [
     name: 'Jackets',
     category: 'Jackets',
     price: 12,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -730,8 +688,7 @@ export const mockProducts: Product[] = [
     name: 'Jackets',
     category: 'Jackets',
     price: 16,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['S', 'M', 'L', 'Free Size'],
   },
@@ -749,8 +706,7 @@ export const mockProducts: Product[] = [
     name: 'Pajamas',
     category: 'Pajamas',
     price: 10,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
     sizes: ['Free Size'],
   },
@@ -759,8 +715,7 @@ export const mockProducts: Product[] = [
     name: 'Glasses',
     category: 'Glasses',
     price: 6,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -768,8 +723,7 @@ export const mockProducts: Product[] = [
     name: 'Belt',
     category: 'Belt',
     price: 7,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -777,8 +731,7 @@ export const mockProducts: Product[] = [
     name: 'ប្រដាប់ខ្ទស់ចង្កេះខោ​',
     category: 'ប្រដាប់ខ្ទស់ចង្កេះខោ​',
     price: 1.5,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -786,8 +739,7 @@ export const mockProducts: Product[] = [
     name: 'ប្រដាប់ខ្ទស់ចង្កេះខោ​',
     category: 'ប្រដាប់ខ្ទស់ចង្កេះខោ​',
     price: 3,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -795,8 +747,7 @@ export const mockProducts: Product[] = [
     name: 'បូចង់សក់​',
     category: 'បូចង់សក់​',
     price: 5,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
   {
@@ -804,8 +755,7 @@ export const mockProducts: Product[] = [
     name: 'បូចង់សក់​',
     category: 'បូចង់សក់​',
     price: 6,
-    image:
-      'https://images.pexels.com/photos/1020585/pexels-photo-1020585.jpeg?auto=compress&cs=tinysrgb&w=500',
+    image: '/img.JPG',
     stock: 500,
   },
 ];

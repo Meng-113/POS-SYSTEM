@@ -1,6 +1,6 @@
-import React from "react";
-import { LogOut, Clock, User } from "lucide-react";
-import { User as UserType } from "../types";
+import React from 'react';
+import { LogOut, Clock, User } from 'lucide-react';
+import { User as UserType } from '../types';
 
 interface HeaderProps {
   user: UserType;
@@ -14,9 +14,12 @@ export default function Header({ user, onLogout }: HeaderProps) {
     <header className="bg-white shadow-sm border-b px-6 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <h1 className="text-2xl font-bold text-gray-800">
-            Teenager Collection
-          </h1>
+          <img className="w-40 h-auto" src="/img.JPG" alt="" />
+          <span>
+            <h1 className="text-2xl font-bold text-gray-800">
+              Teenager Collection
+            </h1>
+          </span>
         </div>
 
         <div className="flex items-center space-x-6">

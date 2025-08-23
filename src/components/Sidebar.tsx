@@ -27,9 +27,9 @@ export default function Sidebar({
               <button
                 key={item.id}
                 onClick={() => onSectionChange(item.id)}
-                className={`w-full flex items-center space-x-3 px-4 py-3 text-left rounded-lg transition-colors ${
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
                   activeSection === item.id
-                    ? 'bg-blue-100 text-blue-600 border border-blue-200'
+                    ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
                     : 'text-gray-600 hover:bg-gray-100'
                 }`}
               >

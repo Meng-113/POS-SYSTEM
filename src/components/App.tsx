@@ -1,52 +1,52 @@
-import React, { useState } from "react";
-import { Product, Sale, User, Category } from "./types";
-import { mockProducts, mockSales, mockCategories } from "./utils/mockData";
-import { useLocalStorage } from "./hooks/useLocalStorage";
+import React, { useState } from 'react';
+import { Product, Sale, User, Category } from '../types';
+import { mockProducts, mockSales, mockCategories } from '../utils/mockData';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 // Components
-import Login from "./components/Login";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
-import Dashboard from "./components/Dashboard";
-import POSSystem from "./components/POSSystem";
-import ProductManagement from "./components/ProductManagement";
-import SalesHistory from "./components/SalesHistory";
-import ReceiptPreview from "./components/ReceiptPreview";
+import Login from './Login';
+import Header from './Header';
+import Sidebar from './Sidebar';
+import Dashboard from './Dashboard';
+import POSSystem from './POSSystem';
+import ProductManagement from './ProductManagement';
+import SalesHistory from './SalesHistory';
+import ReceiptPreview from './ReceiptPreview';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [activeSection, setActiveSection] = useState("dashboard");
+  const [activeSection, setActiveSection] = useState('dashboard');
   const [products, setProducts] = useLocalStorage<Product[]>(
-    "pos-products",
+    'pos-products',
     mockProducts
   );
-  const [sales, setSales] = useLocalStorage<Sale[]>("pos-sales", mockSales);
+  const [sales, setSales] = useLocalStorage<Sale[]>('pos-sales', mockSales);
   const [categories, setCategories] = useLocalStorage<Category[]>(
-    "pos-categories",
+    'pos-categories',
     mockCategories
   );
   const [selectedReceipt, setSelectedReceipt] = useState<Sale | null>(null);
 
   const currentUser: User = {
-    id: "1",
-    username: "admin",
-    name: "Store Manager",
-    avatar: "",
+    id: '1',
+    username: 'admin',
+    name: 'Store Manager',
+    avatar: '',
   };
 
   const handleLogin = (username: string, password: string) => {
     // Simple authentication - in real app, this would be handled by backend
-    if (username === "admin" && password === "password") {
+    if (username === 'admin' && password === 'password') {
       setIsLoggedIn(true);
-      setActiveSection("dashboard");
+      setActiveSection('dashboard');
     } else {
-      alert("Invalid credentials. Use: admin / password");
+      alert('Invalid credentials. Use: admin / password');
     }
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    setActiveSection("dashboard");
+    setActiveSection('dashboard');
   };
 
   const handleAddSale = (sale: Sale) => {
@@ -65,11 +65,21 @@ function App() {
     setSales([]);
   };
 
+  const handleUpdateSale = (updatedSale: Sale) => {
+    setSales(
+      sales.map((sale) => (sale.id === updatedSale.id ? updatedSale : sale))
+    );
+  };
+
+  const handleDeleteSale = (saleId: string) => {
+    setSales(sales.filter((sale) => sale.id !== saleId));
+  };
+
   const renderMainContent = () => {
     switch (activeSection) {
-      case "dashboard":
+      case 'dashboard':
         return <Dashboard sales={sales} onNavigate={setActiveSection} />;
-      case "pos":
+      case 'pos':
         return (
           <POSSystem
             products={products}
@@ -78,7 +88,7 @@ function App() {
             categories={categories}
           />
         );
-      case "products":
+      case 'products':
         return (
           <ProductManagement
             products={products}
@@ -87,15 +97,17 @@ function App() {
             onUpdateCategories={setCategories}
           />
         );
-      case "history":
+      case 'history':
         return (
           <SalesHistory
             sales={sales}
             onClearHistory={handleClearHistory}
+            onUpdateSale={handleUpdateSale}
+            onDeleteSale={handleDeleteSale}
             onShowReceipt={handleShowReceipt}
           />
         );
-      case "settings":
+      case 'settings':
         return (
           <div className="p-6">
             <h1 className="text-3xl font-bold text-gray-800 mb-4">Settings</h1>
