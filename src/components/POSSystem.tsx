@@ -545,7 +545,7 @@ export default function POSSystem({
                         {/* USD Input */}
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700 font-semibold text-lg">
-                            💵 Paid in USD:
+                            Paid in USD:
                           </span>
                           <input
                             type="number"
@@ -564,7 +564,7 @@ export default function POSSystem({
                         {/* KHR Input */}
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700 font-semibold text-lg">
-                            🛡️ Paid in KHR:
+                            Paid in KHR:
                           </span>
                           <input
                             type="number"
