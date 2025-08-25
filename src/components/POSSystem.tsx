@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Plus,
   Minus,
@@ -9,9 +9,9 @@ import {
   Building,
   Search,
   RefreshCw,
-} from 'lucide-react';
-import { Product, CartItem, Sale, Category } from '../types';
-import { banks, USD_TO_KHR_RATE } from '../utils/mockData';
+} from "lucide-react";
+import { Product, CartItem, Sale, Category } from "../types";
+import { banks, USD_TO_KHR_RATE } from "../utils/mockData";
 
 interface POSSystemProps {
   products: Product[];
@@ -26,32 +26,39 @@ export default function POSSystem({
   onShowReceipt,
   categories,
 }: POSSystemProps) {
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [currency, setCurrency] = useState<'USD' | 'KHR'>('USD');
-  const [customerPaid, setCustomerPaid] = useState<number>(0);
+  const [currency, setCurrency] = useState<"USD" | "KHR">("USD");
+  const [customerPaidUSD, setCustomerPaidUSD] = useState<number>(0);
+  const [customerPaidKHR, setCustomerPaidKHR] = useState<number>(0);
   const [showSizeModal, setShowSizeModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [selectedSize, setSelectedSize] = useState<string>('');
+  const [selectedSize, setSelectedSize] = useState<string>("");
   const [taxRate, setTaxRate] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState<
-    'cash' | 'credit' | 'bank'
-  >('cash');
-  const [selectedBank, setSelectedBank] = useState('');
-  const [bankSlip, setBankSlip] = useState<string>('');
+    "cash" | "credit" | "bank"
+  >("cash");
+  const [selectedBank, setSelectedBank] = useState("");
+  const [bankSlip, setBankSlip] = useState<string>("");
+  const [useMixedCurrency, setUseMixedCurrency] = useState(false);
 
-  const allCategories = ['All', ...categories.map((cat) => cat.name)];
+  const allCategories = ["All", ...categories.map((cat) => cat.name)];
+
+  // --- Select All Text on Click ---
+  const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    e.currentTarget.select();
+  };
 
   // --- Filtering ---
   const filteredProducts = products.filter((product) => {
     const matchesCategory =
-      selectedCategory === 'All' || product.category === selectedCategory;
+      selectedCategory === "All" || product.category === selectedCategory;
     let matchesSearch = true;
     if (searchTerm.trim()) {
       const search = searchTerm.toLowerCase().trim();
-      if (search.includes('$') || /^\d+(\.\d{1,2})?$/.test(search)) {
-        const searchPrice = parseFloat(search.replace('$', ''));
+      if (search.includes("$") || /^\d+(\.\d{1,2})?$/.test(search)) {
+        const searchPrice = parseFloat(search.replace("$", ""));
         matchesSearch = !isNaN(searchPrice) && product.price === searchPrice;
       } else {
         matchesSearch = product.name.toLowerCase().includes(search);
@@ -64,7 +71,7 @@ export default function POSSystem({
   const handleProductClick = (product: Product) => {
     if (product.sizes && product.sizes.length > 0) {
       setSelectedProduct(product);
-      setSelectedSize('');
+      setSelectedSize("");
       setShowSizeModal(true);
     } else {
       addToCart(product);
@@ -93,7 +100,7 @@ export default function POSSystem({
       addToCart(selectedProduct, selectedSize);
       setShowSizeModal(false);
       setSelectedProduct(null);
-      setSelectedSize('');
+      setSelectedSize("");
     }
   };
 
@@ -101,7 +108,7 @@ export default function POSSystem({
     setCart(
       cart
         .map((item) => {
-          const itemKey = `${item.id}-${item.selectedSize || 'no-size'}`;
+          const itemKey = `${item.id}-${item.selectedSize || "no-size"}`;
           if (itemKey === id) {
             const newQuantity = item.quantity + change;
             return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;
@@ -115,17 +122,19 @@ export default function POSSystem({
   const removeFromCart = (id: string) => {
     setCart(
       cart.filter(
-        (item) => `${item.id}-${item.selectedSize || 'no-size'}` !== id
+        (item) => `${item.id}-${item.selectedSize || "no-size"}` !== id
       )
     );
   };
 
   const clearCart = () => {
     setCart([]);
-    setPaymentMethod('cash');
-    setSelectedBank('');
-    setBankSlip('');
-    setCustomerPaid(0);
+    setPaymentMethod("cash");
+    setSelectedBank("");
+    setBankSlip("");
+    setCustomerPaidUSD(0);
+    setCustomerPaidKHR(0);
+    setUseMixedCurrency(false);
   };
 
   // --- Totals ---
@@ -137,18 +146,36 @@ export default function POSSystem({
   const total = subtotal + tax;
 
   const convertPrice = (price: number) =>
-    currency === 'KHR' ? price * USD_TO_KHR_RATE : price;
+    currency === "KHR" ? price * USD_TO_KHR_RATE : price;
 
   const formatPrice = (price: number) => {
     const convertedPrice = convertPrice(price);
-    return currency === 'KHR'
-      ? `${convertedPrice.toLocaleString()}៛`
+    return currency === "KHR"
+      ? `${convertedPrice.toLocaleString()}រ`
       : `$${convertedPrice.toFixed(2)}`;
   };
 
+  // Mixed currency calculations
+  const totalPaidInUSD = customerPaidUSD + customerPaidKHR / USD_TO_KHR_RATE;
+  const changeInUSD = totalPaidInUSD > total ? totalPaidInUSD - total : 0;
+  const changeInKHR = changeInUSD * USD_TO_KHR_RATE;
+
+  // Legacy single currency calculations for backward compatibility
   const convertedTotal = convertPrice(total);
-  const change =
-    customerPaid > convertedTotal ? customerPaid - convertedTotal : 0;
+  const singleCurrencyPaid = useMixedCurrency
+    ? totalPaidInUSD
+    : currency === "USD"
+    ? customerPaidUSD
+    : customerPaidKHR;
+  const singleCurrencyChange = useMixedCurrency
+    ? changeInUSD
+    : currency === "USD"
+    ? customerPaidUSD > total
+      ? customerPaidUSD - total
+      : 0
+    : customerPaidKHR > convertedTotal
+    ? customerPaidKHR - convertedTotal
+    : 0;
 
   // --- File Upload ---
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,8 +189,16 @@ export default function POSSystem({
 
   // Auto set customer paid to total
   useEffect(() => {
-    setCustomerPaid(convertedTotal);
-  }, [convertedTotal]);
+    if (!useMixedCurrency) {
+      if (currency === "USD") {
+        setCustomerPaidUSD(total);
+        setCustomerPaidKHR(0);
+      } else {
+        setCustomerPaidKHR(convertedTotal);
+        setCustomerPaidUSD(0);
+      }
+    }
+  }, [total, convertedTotal, currency, useMixedCurrency]);
 
   // --- Payment ---
   const processPayment = () => {
@@ -171,18 +206,38 @@ export default function POSSystem({
     const sale: Sale = {
       id: Date.now().toString(),
       receiptNumber: `RCP${String(Date.now()).slice(-6)}`,
-      date: new Date().toISOString().split('T')[0],
+      date: new Date().toISOString().split("T")[0],
       time: new Date().toTimeString().slice(0, 5),
       items: cart,
       subtotal,
       tax,
       total,
       currency,
-      customerPaid,
-      change,
+      customerPaid: useMixedCurrency ? totalPaidInUSD : singleCurrencyPaid,
+      customerPaidUSD: useMixedCurrency
+        ? customerPaidUSD
+        : currency === "USD"
+        ? customerPaidUSD
+        : 0,
+      customerPaidKHR: useMixedCurrency
+        ? customerPaidKHR
+        : currency === "KHR"
+        ? customerPaidKHR
+        : 0,
+      change: useMixedCurrency ? changeInUSD : singleCurrencyChange,
+      changeUSD: useMixedCurrency
+        ? changeInUSD
+        : currency === "USD"
+        ? singleCurrencyChange
+        : 0,
+      changeKHR: useMixedCurrency
+        ? changeInKHR
+        : currency === "KHR"
+        ? singleCurrencyChange
+        : 0,
       paymentMethod,
-      bankName: paymentMethod === 'bank' ? selectedBank : undefined,
-      bankSlip: paymentMethod === 'bank' ? bankSlip : undefined,
+      bankName: paymentMethod === "bank" ? selectedBank : undefined,
+      bankSlip: paymentMethod === "bank" ? bankSlip : undefined,
     };
     onAddSale(sale);
     onShowReceipt(sale);
@@ -192,33 +247,35 @@ export default function POSSystem({
   // --- ENTER in Product Modal = Add to Cart ---
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' && selectedProduct) {
+      if (e.key === "Enter" && selectedProduct) {
         e.preventDefault();
         handleSizeSelection();
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedProduct, selectedSize]);
 
   // --- ENTER on POS Screen = Confirm Payment ---
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' && !selectedProduct) {
+      if (e.key === "Enter" && !selectedProduct) {
         e.preventDefault();
         processPayment();
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [
     showSizeModal,
     selectedProduct,
     selectedSize,
     cart,
-    customerPaid,
+    customerPaidUSD,
+    customerPaidKHR,
+    useMixedCurrency,
     paymentMethod,
     selectedBank,
     bankSlip,
@@ -231,12 +288,12 @@ export default function POSSystem({
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-3xl font-bold text-gray-800">Point of Sale</h1>
           <button
-            onClick={() => setCurrency(currency === 'USD' ? 'KHR' : 'USD')}
+            onClick={() => setCurrency(currency === "USD" ? "KHR" : "USD")}
             className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg flex items-center space-x-2 transition-colors"
           >
             <RefreshCw size={18} />
             <span>
-              {currency === 'USD' ? 'Switch to KHR (៛)' : 'Switch to USD ($)'}
+              {currency === "USD" ? "Switch to KHR (រ)" : "Switch to USD ($)"}
             </span>
           </button>
         </div>
@@ -252,6 +309,7 @@ export default function POSSystem({
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onClick={handleInputClick}
               placeholder="Search by name or price (e.g., 'White Shirt' or '299')"
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-khmer"
             />
@@ -266,8 +324,8 @@ export default function POSSystem({
               onClick={() => setSelectedCategory(category)}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                 selectedCategory === category
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               {category}
@@ -284,8 +342,8 @@ export default function POSSystem({
               <p className="text-gray-500 text-lg">No products found</p>
               <p className="text-gray-400 text-sm mt-2">
                 {searchTerm
-                  ? 'Try adjusting your search terms'
-                  : 'Try selecting a different category'}
+                  ? "Try adjusting your search terms"
+                  : "Try selecting a different category"}
               </p>
             </div>
           ) : (
@@ -345,7 +403,7 @@ export default function POSSystem({
               ) : (
                 cart.map((item) => (
                   <div
-                    key={`${item.id}-${item.selectedSize || 'no-size'}`}
+                    key={`${item.id}-${item.selectedSize || "no-size"}`}
                     className="flex items-center space-x-3 py-2 border-b border-gray-100 last:border-0"
                   >
                     <img
@@ -370,7 +428,7 @@ export default function POSSystem({
                       <button
                         onClick={() =>
                           updateQuantity(
-                            `${item.id}-${item.selectedSize || 'no-size'}`,
+                            `${item.id}-${item.selectedSize || "no-size"}`,
                             -1
                           )
                         }
@@ -384,7 +442,7 @@ export default function POSSystem({
                       <button
                         onClick={() =>
                           updateQuantity(
-                            `${item.id}-${item.selectedSize || 'no-size'}`,
+                            `${item.id}-${item.selectedSize || "no-size"}`,
                             1
                           )
                         }
@@ -396,7 +454,7 @@ export default function POSSystem({
                     <button
                       onClick={() =>
                         removeFromCart(
-                          `${item.id}-${item.selectedSize || 'no-size'}`
+                          `${item.id}-${item.selectedSize || "no-size"}`
                         )
                       }
                       className="text-red-500 hover:text-red-600 p-1"
@@ -427,6 +485,7 @@ export default function POSSystem({
                         type="number"
                         value={taxRate}
                         onChange={(e) => setTaxRate(Number(e.target.value))}
+                        onClick={handleInputClick}
                         className="w-48 px-4 py-2 text-lg border rounded"
                         min="0"
                         max="50"
@@ -446,37 +505,191 @@ export default function POSSystem({
                     </div>
                   </div>
                   <div className="border-t pt-3 space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600 text-lg">
-                        Customer Paid:
+                    {/* Mixed Currency Toggle */}
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-gray-600 text-lg font-semibold">
+                        Payment Options:
                       </span>
-                      <input
-                        type="number"
-                        value={customerPaid}
-                        onChange={(e) =>
-                          setCustomerPaid(Number(e.target.value))
-                        }
-                        className="w-48 px-4 py-2 text-lg border rounded text-right"
-                        min="0"
-                        step={currency === 'KHR' ? '100' : '0.01'}
-                      />
+                      <label className="flex items-center space-x-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={useMixedCurrency}
+                          onChange={(e) => {
+                            setUseMixedCurrency(e.target.checked);
+                            if (!e.target.checked) {
+                              // Reset to single currency mode
+                              if (currency === "USD") {
+                                setCustomerPaidUSD(total);
+                                setCustomerPaidKHR(0);
+                              } else {
+                                setCustomerPaidKHR(convertedTotal);
+                                setCustomerPaidUSD(0);
+                              }
+                            }
+                          }}
+                          className="text-blue-500"
+                        />
+                        <span className="text-sm font-medium text-gray-700">
+                          Mixed Currency Payment
+                        </span>
+                      </label>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600 text-lg">Change:</span>
-                      <span
-                        className={`font-medium text-lg ${
-                          change > 0
-                            ? 'text-green-600'
-                            : customerPaid < convertedTotal
-                            ? 'text-red-600'
-                            : 'text-gray-800'
-                        }`}
-                      >
-                        {currency === 'KHR'
-                          ? `${change.toLocaleString()}៛`
-                          : `$${change.toFixed(2)}`}
-                      </span>
-                    </div>
+
+                    {useMixedCurrency ? (
+                      /* Mixed Currency Payment */
+                      <div className="space-y-4 p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
+                        <h4 className="font-bold text-blue-800 text-lg mb-3">
+                          💱 Mixed Currency Payment
+                        </h4>
+
+                        {/* USD Input */}
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-700 font-semibold text-lg">
+                            💵 Paid in USD:
+                          </span>
+                          <input
+                            type="number"
+                            value={customerPaidUSD}
+                            onChange={(e) =>
+                              setCustomerPaidUSD(Number(e.target.value))
+                            }
+                            onClick={handleInputClick}
+                            className="w-32 px-3 py-2 text-lg border border-blue-300 rounded-lg text-right focus:ring-2 focus:ring-blue-500"
+                            min="0"
+                            step="0.01"
+                            placeholder="0.00"
+                          />
+                        </div>
+
+                        {/* KHR Input */}
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-700 font-semibold text-lg">
+                            🛡️ Paid in KHR:
+                          </span>
+                          <input
+                            type="number"
+                            value={customerPaidKHR}
+                            onChange={(e) =>
+                              setCustomerPaidKHR(Number(e.target.value))
+                            }
+                            onClick={handleInputClick}
+                            className="w-32 px-3 py-2 text-lg border border-blue-300 rounded-lg text-right focus:ring-2 focus:ring-blue-500"
+                            min="0"
+                            step="100"
+                            placeholder="0"
+                          />
+                        </div>
+
+                        {/* Exchange Rate Info */}
+                        <div className="text-center text-sm text-blue-600 bg-blue-100 p-2 rounded">
+                          Exchange Rate: 1 USD ={" "}
+                          {USD_TO_KHR_RATE.toLocaleString()} KHR
+                        </div>
+
+                        {/* Total Paid Calculation */}
+                        <div className="border-t border-blue-300 pt-3 space-y-2">
+                          <div className="flex justify-between items-center">
+                            <span className="font-bold text-gray-700 text-lg">
+                              Total Paid (USD):
+                            </span>
+                            <span className="font-bold text-lg text-blue-700">
+                              ${totalPaidInUSD.toFixed(2)}
+                            </span>
+                          </div>
+
+                          {/* Breakdown */}
+                          <div className="text-sm text-gray-600 space-y-1">
+                            <div className="flex justify-between">
+                              <span>USD: ${customerPaidUSD.toFixed(2)}</span>
+                              <span>
+                                KHR: {customerPaidKHR.toLocaleString()}រ ($
+                                {(customerPaidKHR / USD_TO_KHR_RATE).toFixed(2)}
+                                )
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Change */}
+                          <div className="flex justify-between items-center pt-2 border-t border-blue-200">
+                            <span className="font-bold text-gray-700 text-lg">
+                              Change:
+                            </span>
+                            <div className="text-right">
+                              <div
+                                className={`font-bold text-lg ${
+                                  changeInUSD > 0
+                                    ? "text-green-600"
+                                    : totalPaidInUSD < total
+                                    ? "text-red-600"
+                                    : "text-gray-800"
+                                }`}
+                              >
+                                ${changeInUSD.toFixed(2)} USD
+                              </div>
+                              <div
+                                className={`text-sm ${
+                                  changeInUSD > 0
+                                    ? "text-green-600"
+                                    : totalPaidInUSD < total
+                                    ? "text-red-600"
+                                    : "text-gray-600"
+                                }`}
+                              >
+                                {changeInKHR.toLocaleString()}រ KHR
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      /* Single Currency Payment */
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-600 text-lg">
+                            Customer Paid ({currency}):
+                          </span>
+                          <input
+                            type="number"
+                            value={
+                              currency === "USD"
+                                ? customerPaidUSD
+                                : customerPaidKHR
+                            }
+                            onChange={(e) => {
+                              if (currency === "USD") {
+                                setCustomerPaidUSD(Number(e.target.value));
+                                setCustomerPaidKHR(0);
+                              } else {
+                                setCustomerPaidKHR(Number(e.target.value));
+                                setCustomerPaidUSD(0);
+                              }
+                            }}
+                            onClick={handleInputClick}
+                            className="w-48 px-4 py-2 text-lg border rounded text-right"
+                            min="0"
+                            step={currency === "KHR" ? "100" : "0.01"}
+                          />
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600 text-lg">Change:</span>
+                          <span
+                            className={`font-medium text-lg ${
+                              singleCurrencyChange > 0
+                                ? "text-green-600"
+                                : (currency === "USD"
+                                    ? customerPaidUSD
+                                    : customerPaidKHR) < convertedTotal
+                                ? "text-red-600"
+                                : "text-gray-800"
+                            }`}
+                          >
+                            {currency === "KHR"
+                              ? `${singleCurrencyChange.toLocaleString()}រ`
+                              : `$${singleCurrencyChange.toFixed(2)}`}
+                          </span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -492,7 +705,7 @@ export default function POSSystem({
                       type="radio"
                       name="payment"
                       value="cash"
-                      checked={paymentMethod === 'cash'}
+                      checked={paymentMethod === "cash"}
                       onChange={(e) => setPaymentMethod(e.target.value as any)}
                       className="text-blue-500"
                     />
@@ -504,7 +717,7 @@ export default function POSSystem({
                       type="radio"
                       name="payment"
                       value="credit"
-                      checked={paymentMethod === 'credit'}
+                      checked={paymentMethod === "credit"}
                       onChange={(e) => setPaymentMethod(e.target.value as any)}
                       className="text-blue-500"
                     />
@@ -516,7 +729,7 @@ export default function POSSystem({
                       type="radio"
                       name="payment"
                       value="bank"
-                      checked={paymentMethod === 'bank'}
+                      checked={paymentMethod === "bank"}
                       onChange={(e) => setPaymentMethod(e.target.value as any)}
                       className="text-blue-500"
                     />
@@ -525,7 +738,7 @@ export default function POSSystem({
                   </label>
                 </div>
 
-                {paymentMethod === 'bank' && (
+                {paymentMethod === "bank" && (
                   <div className="mt-4 space-y-2">
                     <p className="text-gray-700 font-medium">Choose Bank:</p>
                     <div className="grid grid-cols-2 gap-2">
@@ -535,8 +748,8 @@ export default function POSSystem({
                           onClick={() => setSelectedBank(bank)}
                           className={`py-2 px-4 rounded-lg border-2 transition-colors text-center ${
                             selectedBank === bank
-                              ? 'border-blue-500 bg-blue-50 text-blue-600'
-                              : 'border-gray-200 hover:border-gray-300'
+                              ? "border-blue-500 bg-blue-50 text-blue-600"
+                              : "border-gray-200 hover:border-gray-300"
                           }`}
                         >
                           {bank}
@@ -594,8 +807,8 @@ export default function POSSystem({
                   onClick={() => setSelectedSize(size)}
                   className={`py-2 px-4 rounded-lg border-2 transition-colors ${
                     selectedSize === size
-                      ? 'border-blue-500 bg-blue-50 text-blue-600'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? "border-blue-500 bg-blue-50 text-blue-600"
+                      : "border-gray-200 hover:border-gray-300"
                   }`}
                 >
                   {size}

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Eye, Calendar, Search, Trash2, Edit, X, Save } from 'lucide-react';
-import { Sale } from '../types';
-import { USD_TO_KHR_RATE } from '../utils/mockData';
+import React, { useState } from "react";
+import { Eye, Calendar, Search, Trash2, Edit, X, Save } from "lucide-react";
+import { Sale } from "../types";
+import { USD_TO_KHR_RATE } from "../utils/mockData";
 
 interface SalesHistoryProps {
   sales: Sale[];
@@ -18,19 +18,19 @@ export default function SalesHistory({
   onUpdateSale,
   onDeleteSale,
 }: SalesHistoryProps) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [dateFilter, setDateFilter] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [dateFilter, setDateFilter] = useState("");
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [editingSale, setEditingSale] = useState<Sale | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editFormData, setEditFormData] = useState({
-    receiptNumber: '',
-    date: '',
-    time: '',
-    paymentMethod: 'cash' as 'cash' | 'credit' | 'bank',
-    bankName: '',
+    receiptNumber: "",
+    date: "",
+    time: "",
+    paymentMethod: "cash" as "cash" | "credit" | "bank",
+    bankName: "",
     customerPaid: 0,
-    currency: 'USD' as 'USD' | 'KHR',
+    currency: "USD" as "USD" | "KHR",
   });
 
   const filteredSales = sales.filter((sale) => {
@@ -42,7 +42,7 @@ export default function SalesHistory({
   });
 
   const formatPrice = (sale: Sale) => {
-    if (sale.currency === 'KHR') {
+    if (sale.currency === "KHR") {
       const convertedPrice = sale.total * USD_TO_KHR_RATE;
       return `${convertedPrice.toLocaleString()}៛`;
     }
@@ -63,7 +63,7 @@ export default function SalesHistory({
       date: sale.date,
       time: sale.time,
       paymentMethod: sale.paymentMethod,
-      bankName: sale.bankName || '',
+      bankName: sale.bankName || "",
       customerPaid: sale.customerPaid || 0,
       currency: sale.currency,
     });
@@ -80,7 +80,7 @@ export default function SalesHistory({
       time: editFormData.time,
       paymentMethod: editFormData.paymentMethod,
       bankName:
-        editFormData.paymentMethod === 'bank'
+        editFormData.paymentMethod === "bank"
           ? editFormData.bankName
           : undefined,
       customerPaid: editFormData.customerPaid,
@@ -238,26 +238,26 @@ export default function SalesHistory({
                       <td className="px-6 py-4">
                         <div className="text-sm text-gray-900">
                           {sale.items.length} item
-                          {sale.items.length !== 1 ? 's' : ''}
+                          {sale.items.length !== 1 ? "s" : ""}
                         </div>
                         <div className="text-xs text-gray-500 truncate max-w-40">
                           {sale.items
                             .map((item) => `${item.name} (${item.quantity})`)
-                            .join(', ')}
+                            .join(", ")}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <span
                             className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                              sale.paymentMethod === 'cash'
-                                ? 'bg-green-100 text-green-800'
-                                : sale.paymentMethod === 'credit'
-                                ? 'bg-blue-100 text-blue-800'
-                                : 'bg-purple-100 text-purple-800'
+                              sale.paymentMethod === "cash"
+                                ? "bg-green-100 text-green-800"
+                                : sale.paymentMethod === "credit"
+                                ? "bg-blue-100 text-blue-800"
+                                : "bg-purple-100 text-purple-800"
                             }`}
                           >
-                            {sale.paymentMethod === 'bank'
+                            {sale.paymentMethod === "bank"
                               ? `Bank (${sale.bankName})`
                               : sale.paymentMethod}
                           </span>
@@ -413,7 +413,7 @@ export default function SalesHistory({
                   onChange={(e) =>
                     setEditFormData({
                       ...editFormData,
-                      currency: e.target.value as 'USD' | 'KHR',
+                      currency: e.target.value as "USD" | "KHR",
                     })
                   }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -425,7 +425,7 @@ export default function SalesHistory({
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Customer Paid ({editFormData.currency === 'KHR' ? '៛' : '$'})
+                  Customer Paid ({editFormData.currency === "KHR" ? "៛" : "$"})
                 </label>
                 <input
                   type="number"
@@ -438,7 +438,7 @@ export default function SalesHistory({
                   }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   min="0"
-                  step={editFormData.currency === 'KHR' ? '100' : '0.01'}
+                  step={editFormData.currency === "KHR" ? "100" : "0.01"}
                 />
               </div>
 
@@ -452,9 +452,9 @@ export default function SalesHistory({
                     setEditFormData({
                       ...editFormData,
                       paymentMethod: e.target.value as
-                        | 'cash'
-                        | 'credit'
-                        | 'bank',
+                        | "cash"
+                        | "credit"
+                        | "bank",
                     })
                   }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -465,7 +465,7 @@ export default function SalesHistory({
                 </select>
               </div>
 
-              {editFormData.paymentMethod === 'bank' && (
+              {editFormData.paymentMethod === "bank" && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Bank Name
@@ -489,7 +489,7 @@ export default function SalesHistory({
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm text-gray-600">Total:</span>
                   <span className="font-semibold">
-                    {editFormData.currency === 'KHR'
+                    {editFormData.currency === "KHR"
                       ? `${(
                           editingSale.total * USD_TO_KHR_RATE
                         ).toLocaleString()}៛`
@@ -501,13 +501,13 @@ export default function SalesHistory({
                   <span
                     className={`font-semibold ${
                       editFormData.customerPaid > editingSale.total
-                        ? 'text-green-600'
+                        ? "text-green-600"
                         : editFormData.customerPaid < editingSale.total
-                        ? 'text-red-600'
-                        : 'text-gray-800'
+                        ? "text-red-600"
+                        : "text-gray-800"
                     }`}
                   >
-                    {editFormData.currency === 'KHR'
+                    {editFormData.currency === "KHR"
                       ? `${Math.max(
                           0,
                           editFormData.customerPaid -

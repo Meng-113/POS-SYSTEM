@@ -22,12 +22,17 @@ export interface Sale {
   subtotal: number;
   tax: number;
   total: number;
-  paymentMethod: 'cash' | 'credit' | 'bank';
+  paymentMethod: "cash" | "credit" | "bank";
   bankName?: string;
   bankSlip?: string;
-  currency: 'USD' | 'KHR';
+  currency: "USD" | "KHR";
   customerPaid?: number;
   change?: number;
+  mixedPayment?: {
+    usdPaid: number;
+    khrPaid: number;
+    totalPaidUSD: number;
+  };
 }
 
 export interface User {
